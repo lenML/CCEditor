@@ -11,7 +11,9 @@ An online character card editor for AI character definitions.
 - 🇯🇵 [日本語](https://lenml.github.io/CCEditor/?lang=ja)
 - 🇰🇷 [한국어](https://lenml.github.io/CCEditor/?lang=ko)
 
-[![Screenshot](./docs/image.png)](https://lenml.github.io/CCEditor)
+| ![Screenshot](./docs/image.png) | ![MonacoEditor](./docs/image2.png) |
+| :-----------------------------: | :--------------------------------: |
+|         Main Interface          |       Built-in Monaco Editor       |
 
 ## ✨ Features
 
