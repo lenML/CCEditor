@@ -30,6 +30,7 @@ import {
   DrawerHeader,
   DrawerHeaderTitle,
   DrawerBody,
+  type SelectTabData,
 } from "@fluentui/react-components";
 
 import {
@@ -53,6 +54,7 @@ import { formatDateData } from "../tools/times";
 import { AvatarPanel } from "./AvatarPanel/AvatarPanel";
 import { LangSwitch } from "./LangSwitch";
 import { createBlackImage } from "../tools/images";
+import { ToolTab } from "./tabs/ToolTab";
 
 function getDefaultFormData() {
   return {
@@ -325,8 +327,8 @@ export function App() {
     }
   };
 
-  const onTabSelect = (event: any, data: { value: SetStateAction<string> }) => {
-    setSelectedTab(data.value);
+  const onTabSelect = (event: any, data: SelectTabData) => {
+    setSelectedTab(data.value as any);
   };
 
   const dragEvents = {
@@ -625,6 +627,10 @@ export function App() {
               <Tab icon={<Settings24Regular />} value="advanced">
                 {t("Advanced")}
               </Tab>
+              <hr />
+              <Tab icon={<Settings24Regular />} value="tool">
+                {t("Tool")}
+              </Tab>
             </TabList>
             <div className={styles.tabContent}>
               {(() => {
@@ -649,7 +655,11 @@ export function App() {
                     return (
                       <CharacterBookTab
                         bookData={
-                          formData.character_book || { name: "", entries: [] }
+                          formData.character_book || {
+                            name: "",
+                            entries: [],
+                            extensions: {},
+                          }
                         }
                         onBookChange={handleBookDataChange}
                       />
@@ -662,6 +672,9 @@ export function App() {
                         handleInputChange={handleInputChange}
                       />
                     );
+                  }
+                  case "tool": {
+                    return <ToolTab getCard={getFinalCard} />;
                   }
                   default: {
                     return <span>WARN: Tab Render Error [{selectedTab}]</span>;

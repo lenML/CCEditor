@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { CharacterCard } from "@lenml/char-card-reader";
 
 import {
@@ -27,6 +27,8 @@ import { useI18n } from "../../tools/i18n";
 import { CardDumper } from "../../tools/CardDumper";
 // import { sanitizeFilename } from "../common"; // Not used in this snippet
 
+import { filesize } from "filesize";
+
 const versions = ["v1", "v2", "v3", "max"] as const;
 type TVersion = (typeof versions)[number];
 
@@ -44,6 +46,32 @@ function getPngFilename(originalFilename: string): string {
     originalFilename.substring(0, originalFilename.lastIndexOf(".")) ||
     originalFilename;
   return `${nameWithoutExtension}.png`;
+}
+
+function useImageInfo(image_url: string | null) {
+  const [imageInfo, setImageInfo] = useState({
+    width: 0,
+    height: 0,
+  });
+  useEffect(() => {
+    if (!image_url) {
+      setImageInfo({
+        width: 0,
+        height: 0,
+      });
+      return;
+    }
+    const image = new window.Image();
+    image.src = image_url;
+    image.onload = () => {
+      // size 为文件大小
+      setImageInfo({
+        width: image.width,
+        height: image.height,
+      });
+    };
+  }, [image_url]);
+  return imageInfo;
 }
 
 export const AvatarPanel = ({
@@ -77,6 +105,8 @@ export const AvatarPanel = ({
 
   const [version, setVersion] = useState("v3" as TVersion);
   const [isProcessingImage, setIsProcessingImage] = useState(false);
+
+  const imageInfo = useImageInfo(avatarPreview || null);
 
   const handleSaveProcess = async (cb: (dumper: CardDumper) => any) => {
     const card = getCurrentCard();
@@ -278,15 +308,23 @@ export const AvatarPanel = ({
         />
         {displayedFileName &&
           !isProcessingImage && ( // Hide filename during processing to reduce clutter
-            <Text className={styles.fileNameText}>
-              File: {displayedFileName}
-            </Text>
+            <>
+              <Text className={styles.fileNameText}>
+                File: {displayedFileName}
+              </Text>
+              {/* <Text className={styles.fileNameText}>
+                Size: {filesize(imageInfo.size)}
+              </Text> */}
+              <Text className={styles.fileNameText}>
+                {imageInfo.width}px * {imageInfo.height}px
+              </Text>
+            </>
           )}
 
         <Field label={t("Spec Version")}>
           <RadioGroup
             value={version}
-            onValueChange={(_, data) => setVersion(data.value as TVersion)}
+            onChange={(_, data) => setVersion(data.value as TVersion)}
             layout="horizontal"
           >
             {versions.map((v) => (

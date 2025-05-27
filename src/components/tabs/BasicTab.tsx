@@ -3,6 +3,8 @@ import { useStyles } from "../useStyles";
 import { useI18n } from "../../tools/i18n";
 import { useMemo } from "react";
 import { FullscreenEditor } from "../edit/FullscreenEditor";
+import { FreeTagPicker } from "../fields/TagPicker";
+import tags from "../../assets/tags.json";
 
 export const BasicTab = ({
   formData,
@@ -26,13 +28,32 @@ export const BasicTab = ({
         label: t("Character Version"),
         component: Input,
       },
-      { name: "tags", label: t("Tags (comma-separated)"), component: Input },
       {
-        name: "source",
-        label: t("Source (comma-separated)"),
-        component: Input,
-        fullWidth: true,
+        name: "tags",
+        label: t("Tags (comma-separated)"),
+        component: (props: any) => (
+          <FreeTagPicker
+            value={props.value ?? []}
+            onChange={(tags) => props.onChange({}, { value: tags })}
+            options={tags}
+            placeholder={t("Input or select tags")}
+          />
+        ),
       },
+      // CCV3 里的字段，似乎不需要用户编辑，去掉了
+      // {
+      //   name: "source",
+      //   label: t("Source (comma-separated)"),
+      //   component: (props: any) => (
+      //     <FreeTagPicker
+      //       value={props.value ?? []}
+      //       onChange={(tags) => props.onChange({}, { value: tags })}
+      //       options={[]}
+      //       placeholder={""}
+      //     />
+      //   ),
+      //   fullWidth: true,
+      // },
       {
         name: "description",
         label: t("Description"),

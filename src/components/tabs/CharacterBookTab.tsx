@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useMemo, type FC } from "react";
 import { useStyles } from "../useStyles";
 
 import {
@@ -11,10 +11,12 @@ import {
 import { BookEntryEditor } from "./BookEntryEditor";
 import { Add24Regular } from "@fluentui/react-icons";
 import { useI18n } from "../../tools/i18n";
+import type { SpecV3 } from "@lenml/char-card-reader";
+import { keysFix } from "../../tools/fixs";
 
 export const CharacterBookTab: FC<{
-  bookData: any;
-  onBookChange: (bookData: any) => void;
+  bookData: SpecV3.Lorebook;
+  onBookChange: (bookData: SpecV3.Lorebook) => void;
 }> = ({ bookData, onBookChange }) => {
   const styles = useStyles();
 
@@ -29,7 +31,7 @@ export const CharacterBookTab: FC<{
   };
 
   const handleAddEntry = () => {
-    const newEntry = {
+    const newEntry: SpecV3.Lorebook["entries"][number] = {
       keys: [],
       secondary_keys: [],
       comment: "",
@@ -40,6 +42,7 @@ export const CharacterBookTab: FC<{
       enabled: true,
       position: "after_char",
       extensions: {},
+      use_regex: false,
       id: Date.now(), // Simple unique ID
     };
     onBookChange({
@@ -57,6 +60,17 @@ export const CharacterBookTab: FC<{
 
   const t = useI18n();
 
+  const total_keys = useMemo(() => {
+    return Array.from(
+      new Set(
+        bookData.entries.flatMap((x) => [
+          ...keysFix(x.keys || []),
+          ...keysFix(x.secondary_keys || []),
+        ])
+      )
+    );
+  }, [bookData]);
+
   return (
     <div>
       <Field label={t("Book Name")}>
@@ -68,11 +82,12 @@ export const CharacterBookTab: FC<{
         />
       </Field>
       <Divider style={{ margin: `${tokens.spacingVerticalL} 0` }} />
-      {(bookData?.entries || []).map((entry: { id: any }, index: any) => (
+      {(bookData?.entries || []).map((entry: any, index: any) => (
         <BookEntryEditor
           key={entry.id || index} // Prefer a stable ID if available
           entry={entry}
           index={index}
+          card_keys={total_keys}
           onUpdateEntry={handleUpdateEntry}
           onDeleteEntry={handleDeleteEntry}
         />

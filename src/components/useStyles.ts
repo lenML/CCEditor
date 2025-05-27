@@ -151,7 +151,7 @@ export const useStyles = makeStyles({
     color: tokens.colorNeutralForeground2,
     textAlign: "center",
     wordBreak: "break-all",
-    marginTop: tokens.spacingVerticalS,
+    // marginTop: tokens.spacingVerticalS,
   },
   // Character Book Editor Styles
   bookEntryCard: {

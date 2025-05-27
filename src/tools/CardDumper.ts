@@ -19,7 +19,11 @@ function download_blob(blob: Blob, filenmae = "") {
 type Versions = "v1" | "v2" | "v3" | "max";
 
 export class CardDumper {
-  constructor(readonly card: CharacterCard) {}
+  public readonly card: CharacterCard;
+
+  constructor(card: CharacterCard) {
+    this.card = card;
+  }
 
   toJson(version = "v3" as Versions) {
     switch (version) {

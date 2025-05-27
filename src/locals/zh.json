@@ -65,5 +65,9 @@
   "Comment": "备注",
   "Book Name": "手册名称",
   "Create New Character": "创建一个新角色",
-  "word_count": "{{chars}} 字符 | {{tokens}} Token"
+  "word_count": "{{chars}} 字符 | {{tokens}} Token",
+  "OR": "或者",
+  "Input or select tags": "输入或者选择Tag",
+  "Expand": "展开",
+  "Collapse": "收起"
 }

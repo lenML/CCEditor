@@ -45,8 +45,8 @@ export function FullscreenEditor(
   const [open, setOpen] = useState(false);
   const [confirmClose, setConfirmClose] = useState(false);
 
-  const editorRef = useRef<editor.IStandaloneCodeEditor>(null);
-  const containerRef = useRef<HTMLElement>(null);
+  const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+  const containerRef = useRef<HTMLElement | null>(null);
 
   const currentValue = isControlled ? controlledValue : internalValue;
 
@@ -125,8 +125,8 @@ export function FullscreenEditor(
           }}
         >
           {t("word_count", {
-            chars: editorValue.split("").length,
-            tokens: tokenizer.encode(editorValue).length,
+            chars: currentValue.split("").length,
+            tokens: tokenizer.encode(currentValue).length,
           })}
         </Text>
       </div>
@@ -152,7 +152,7 @@ export function FullscreenEditor(
                 {window_title}
               </Text>
             </DialogTitle>
-            <DialogContent ref={containerRef}>
+            <DialogContent ref={containerRef as any}>
               <Editor
                 width="100%"
                 height="100%"
@@ -182,8 +182,8 @@ export function FullscreenEditor(
               >
                 {editor_language.toUpperCase()} |{" "}
                 {t("word_count", {
-                  chars: editorValue.split("").length,
-                  tokens: tokenizer.encode(editorValue).length,
+                  chars: currentValue.split("").length,
+                  tokens: tokenizer.encode(currentValue).length,
                 })}
               </Text>
             </DialogContent>
