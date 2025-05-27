@@ -82,6 +82,7 @@ export const FreeTagPicker: React.FC<FreeTagPickerProps> = ({
 
   return (
     <TagPicker
+      // @ts-ignore
       noPopover={options.length === 0}
       selectedOptions={value}
       onOptionSelect={handleOptionSelect}

@@ -79,7 +79,6 @@ const JsonFullEditor = ({
         }
       }}
       name={name}
-      label={label}
       editor_language="json"
     />
   );
