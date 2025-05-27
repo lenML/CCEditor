@@ -81,6 +81,7 @@ export const useStyles = makeStyles({
     gap: tokens.spacingVerticalL,
     alignItems: "center",
     padding: tokens.spacingHorizontalL,
+    overflow: "auto",
   },
   avatarImage: {
     width: "100%", // Make avatar responsive within its panel

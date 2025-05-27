@@ -178,6 +178,8 @@ export function FullscreenEditor(
                   marginTop: 4,
                   display: "block",
                   textAlign: "right",
+                  // 主要是移动端会遮挡按钮
+                  pointerEvents: "none",
                 }}
               >
                 {editor_language.toUpperCase()} |{" "}
