@@ -4,6 +4,13 @@ An online character card editor for AI character definitions.
 
 🌐 **Live Demo**: [https://lenml.github.io/CCEditor](https://lenml.github.io/CCEditor)
 
+📑 **Available in multiple languages** (click to open localized versions):
+
+- 🇬🇧 [English](https://lenml.github.io/CCEditor/?lang=en)
+- 🇨🇳 [简体中文](https://lenml.github.io/CCEditor/?lang=zh)
+- 🇯🇵 [日本語](https://lenml.github.io/CCEditor/?lang=ja)
+- 🇰🇷 [한국어](https://lenml.github.io/CCEditor/?lang=ko)
+
 [![Screenshot](./docs/image.png)](https://lenml.github.io/CCEditor)
 
 ## ✨ Features
