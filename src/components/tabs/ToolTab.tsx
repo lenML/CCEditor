@@ -49,11 +49,11 @@ export const ToolTab = ({
       <fieldset>
         <legend>{t("Apply Template")}</legend>
         <div className={styles.col}>
-          <Field label="User Name">
+          <Field label={t("User Name")}>
             <Input value={user} onChange={(e, data) => setUser(data.value)} />
           </Field>
 
-          <Field label="Assistant Name">
+          <Field label={t("Assistant Name")}>
             <Input
               value={assistant}
               onChange={(e, data) => setAssistant(data.value)}
@@ -61,10 +61,10 @@ export const ToolTab = ({
           </Field>
 
           <Button appearance="primary" onClick={handleCompile}>
-            生成模板
+            {t("Generate")}
           </Button>
 
-          <Field label="输出结果">
+          <Field label={t("Output Result")}>
             <Textarea value={result} readOnly resize="vertical" rows={10} />
           </Field>
         </div>

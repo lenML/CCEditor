@@ -65,5 +65,12 @@
   "Comment": "메모",
   "Book Name": "북 이름",
   "Create New Character": "신 캐릭터 생성",
-  "word_count": "{{chars}} 문자 | {{tokens}} Token"
+  "word_count": "{{chars}} 문자 | {{tokens}} Token",
+  "OR": "또는",
+  "Tool": "도구",
+  "Apply Template": "템플릿 적용",
+  "User Name": "사용자 이름",
+  "Assistant Name": "어시스턴트 이름",
+  "Generate": "생성",
+  "Output Result": "결과 출력"
 }

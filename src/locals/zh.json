@@ -69,5 +69,11 @@
   "OR": "或者",
   "Input or select tags": "输入或者选择Tag",
   "Expand": "展开",
-  "Collapse": "收起"
+  "Collapse": "收起",
+  "Apply Template": "应用模板",
+  "Generate": "生成",
+  "Output Result": "输出结果",
+  "Tool": "工具",
+  "User Name": "用户名",
+  "Assistant Name": "助手名"
 }

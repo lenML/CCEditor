@@ -65,5 +65,12 @@
   "Comment": "コメント",
   "Book Name": "ブック名",
   "Create New Character": "新しいキャラクターを作成",
-  "word_count": "{{chars}} 文字 | {{tokens}} Token"
+  "word_count": "{{chars}} 文字 | {{tokens}} Token",
+  "OR": "または",
+  "Tool": "ツール",
+  "Apply Template": "テンプレートを適用",
+  "User Name": "ユーザー名",
+  "Assistant Name": "アシスタント名",
+  "Generate": "生成",
+  "Output Result": "結果を出力"
 }

@@ -53,5 +53,12 @@
   "Alternate Greetings": "Alternate Greetings",
   "Group Only Greetings": "Group Only Greetings",
   "Fullscreen Edit": "Fullscreen Edit",
-  "word_count": "{{chars}} Chars | {{tokens}} Token"
+  "word_count": "{{chars}} Chars | {{tokens}} Token",
+  "OR": "OR",
+  "Tool": "Tool",
+  "Apply Template": "Apply Template",
+  "User Name": "User Name",
+  "Assistant Name": "Assistant Name",
+  "Generate": "Generate",
+  "Output Result": "Output Result"
 }
