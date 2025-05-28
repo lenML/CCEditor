@@ -22,5 +22,5 @@
     "noUncheckedSideEffectImports": true,
     "noImplicitAny": false
   },
-  "include": ["vite.config.ts", "scripts"]
+  "include": ["vite.config.ts"]
 }
