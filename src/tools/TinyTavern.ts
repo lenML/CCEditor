@@ -52,7 +52,10 @@ export class TinyTavern {
           .filter((x) => x.position !== "after_char")
           .map((x) => x.content)
           .join("\n"),
-        wiAfter: lores.filter((x) => x.position === "after_char").join("\n"),
+        wiAfter: lores
+          .filter((x) => x.position === "after_char")
+          .map((x) => x.content)
+          .join("\n"),
       });
     };
     for (const _ of Array.from({ length: 10 })) {

@@ -21,8 +21,8 @@ dependencies:
     specifier: ^9.0.0
     version: 9.0.0(@types/react-dom@18.3.1)(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1)(scheduler@0.23.0)
   '@lenml/char-card-reader':
-    specifier: ^1.0.5
-    version: 1.0.5
+    specifier: ^1.0.6
+    version: 1.0.6
   '@lenml/tokenizer-claude':
     specifier: ^3.4.2
     version: 3.4.2
@@ -2097,8 +2097,8 @@ packages:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  /@lenml/char-card-reader@1.0.5:
-    resolution: {integrity: sha512-loBTiIiS0uXjou3fiHbvb+XYgo6RiDV/JSEeX2xoToSKmu+Rhv6jm016qccZP1reVcf175P3kNAk9Tqb1aQSrg==}
+  /@lenml/char-card-reader@1.0.6:
+    resolution: {integrity: sha512-e6rg/HVeqKx9pGmVthz3mvAoz8HNeaAmZXIkbTKD8+swy/YMoSwgQd3dMxBy3IhaqaJpfFChPSV+Mc3LFIArgw==}
     dev: false
 
   /@lenml/tokenizer-claude@3.4.2:
