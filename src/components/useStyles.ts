@@ -32,6 +32,11 @@ export const useStyles = makeStyles({
   appName: {
     fontSize: tokens.fontSizeHero700,
     fontWeight: tokens.fontWeightSemibold,
+
+    "& small": {
+      fontSize: tokens.fontSizeBase300,
+      fontWeight: tokens.fontWeightRegular,
+    },
   },
   mainContent: {
     padding: tokens.spacingHorizontalXXL,

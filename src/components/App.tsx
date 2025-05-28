@@ -58,6 +58,7 @@ import { createBlackImage } from "../tools/images";
 import { ToolTab } from "./tabs/ToolTab";
 import { useGlobalPaste } from "./useGlobalPaste";
 import { StartPanel } from "./StartPanel/StartPanel";
+import pkgJson from "../../package.json";
 
 function getDefaultFormData() {
   return {
@@ -352,7 +353,9 @@ export function App() {
           <Text weight="bold" size={500}>
             🎭
           </Text>
-          <Text className={styles.appName}>CC Editor</Text>
+          <Text className={styles.appName}>
+            CC Editor <small>v{pkgJson.version}</small>
+          </Text>
         </div>
         <div className={styles.headerRight}>
           <LangSwitch />
