@@ -70,7 +70,7 @@
   "Input or select tags": "输入或者选择Tag",
   "Expand": "展开",
   "Collapse": "收起",
-  "Apply Template": "应用模板",
+  "Test Template": "测试模板",
   "Generate": "生成",
   "Output Result": "输出结果",
   "Tool": "工具",
@@ -193,5 +193,9 @@
   "Load image from url": "从url加载图片",
   "Load": "加载",
   "Copy/Paste character card current page will auto detect": "复制/粘贴角色卡当前页面将自动检测",
-  "Are you sure you want to delete this entry?": "您确定要删除此条目吗?"
+  "Are you sure you want to delete this entry?": "您确定要删除此条目吗?",
+  "Share": "分享",
+  "Share Link": "分享链接",
+  "You can share the link to edit this card, your friend can click it to reach this tool's edit page": "您可以分享编辑此卡的链接，您的朋友可以点击它到达此工具的编辑页面",
+  "Ok": "好的"
 }

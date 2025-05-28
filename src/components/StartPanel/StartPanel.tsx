@@ -1,14 +1,22 @@
 import {
   Button,
+  Dialog,
+  DialogActions,
+  DialogBody,
+  DialogContent,
+  DialogSurface,
+  DialogTitle,
+  DialogTrigger,
   Field,
   Input,
   Spinner,
   Text,
+  Textarea,
   tokens,
 } from "@fluentui/react-components";
 import { useStyles } from "../useStyles";
 import { useI18n } from "../../tools/i18n";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useGlobalDrop } from "../useGlobalDrop";
 import { CharacterCard } from "@lenml/char-card-reader";
 import { useGlobalPaste } from "../useGlobalPaste";
@@ -55,6 +63,8 @@ export const StartPanel = ({
   const [dragHighlight, setDragHighlight] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loadFromUrl, setLoadFromUrl] = useState("");
+  const loadFromUrlRef = useRef(loadFromUrl);
+  loadFromUrlRef.current = loadFromUrl;
 
   const handleFileCard = useCallback(
     async (getCard: () => Promise<CharacterCard>) => {
@@ -160,11 +170,34 @@ export const StartPanel = ({
   const handleLoadFromUrl = useCallback(async () => {
     // 下载文件
     await handleFileCard(async () => {
-      const response = await fetch(getRawImageUrl(loadFromUrl));
+      const response = await fetch(getRawImageUrl(loadFromUrlRef.current));
       const arrayBuffer = await response.arrayBuffer();
       return CharacterCard.from_file(arrayBuffer);
     });
-  }, [loadFromUrl]);
+  }, []);
+
+  useEffect(() => {
+    // 从 ?load_url=xxx 读取
+    const urlParams = new URLSearchParams(window.location.search);
+    const loadFromUrl = urlParams.get("load_url");
+    if (loadFromUrl) {
+      setLoadFromUrl(decodeURIComponent(loadFromUrl));
+      loadFromUrlRef.current = decodeURIComponent(loadFromUrl);
+      handleLoadFromUrl();
+      // 删除路径中的 url
+      urlParams.delete("load_url");
+      history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}?${urlParams.toString()}`
+      );
+    }
+  }, [handleLoadFromUrl]);
+
+  const [shareModal, updateShareModal] = useState({
+    open: false,
+    url: "",
+  });
 
   return (
     <div
@@ -252,22 +285,87 @@ export const StartPanel = ({
       <div style={{ width: "40vw" }}>
         <Field label={"3. " + t("Load image from url")}>
           <Input
+            type="url"
             placeholder="https://example.com/avatar.png"
             onChange={(e) => {
               const avatarUrl = e.target.value;
               setLoadFromUrl(avatarUrl);
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleLoadFromUrl();
+              }
+            }}
             contentAfter={
-              <Button
-                appearance="transparent"
-                size="small"
-                onClick={handleLoadFromUrl}
+              <span
+                style={{
+                  display: loadFromUrl ? "inline-block" : "none",
+                }}
               >
-                {t("Load")}
-              </Button>
+                <Button
+                  style={{ minWidth: 0, padding: 0, paddingLeft: "0.5rem" }}
+                  appearance="transparent"
+                  size="small"
+                  onClick={() => {
+                    const urlObj = new URL(window.location.href);
+                    urlObj.searchParams.set("load_url", loadFromUrl);
+                    updateShareModal({
+                      open: true,
+                      url: urlObj.href,
+                    });
+                  }}
+                >
+                  {t("Share")}
+                </Button>
+                <Button
+                  style={{ minWidth: 0, padding: 0, paddingLeft: "0.5rem" }}
+                  appearance="transparent"
+                  size="small"
+                  onClick={handleLoadFromUrl}
+                >
+                  {t("Load")}
+                </Button>
+              </span>
             }
           />
         </Field>
+
+        <Dialog
+          open={shareModal.open}
+          onOpenChange={(_: any, data: { open: any }) =>
+            updateShareModal((prev) => ({ ...prev, open: data.open }))
+          }
+        >
+          <DialogSurface>
+            <DialogBody>
+              <DialogTitle>{t("Share Link")}</DialogTitle>
+              <DialogContent>
+                <p className="mb-3">
+                  {t(
+                    // 你可以使用下面的链接分享你的卡片，你的朋友点击之后就可以到达此工具的编辑页面
+                    "You can share the link to edit this card, your friend can click it to reach this tool's edit page"
+                  )}
+                </p>
+                <Textarea
+                  className="w-full"
+                  readOnly
+                  rows={10}
+                  value={shareModal.url}
+                />
+              </DialogContent>
+              <DialogActions>
+                <DialogTrigger disableButtonEnhancement>
+                  <Button
+                    appearance="primary"
+                    onClick={() => updateShareModal({ open: false, url: "" })}
+                  >
+                    {t("Ok")}
+                  </Button>
+                </DialogTrigger>
+              </DialogActions>
+            </DialogBody>
+          </DialogSurface>
+        </Dialog>
       </div>
 
       {/* Option 3: 复制粘贴文件 */}

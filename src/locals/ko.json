@@ -68,7 +68,7 @@
   "word_count": "{{chars}} 문자 | {{tokens}} Token",
   "OR": "또는",
   "Tool": "도구",
-  "Apply Template": "템플릿 적용",
+  "Test Template": "테스트 템플릿",
   "User Name": "사용자 이름",
   "Assistant Name": "어시스턴트 이름",
   "Generate": "생성",
@@ -193,5 +193,9 @@
   "Load image from url": "Load image from url",
   "Load": "Load",
   "Copy/Paste character card current page will auto detect": "Copy/Paste character card current page will auto detect",
-  "Are you sure you want to delete this entry?": "Are you sure you want to delete this entry?"
+  "Are you sure you want to delete this entry?": "Are you sure you want to delete this entry?",
+  "Share": "Share",
+  "Share Link": "Share Link",
+  "You can share the link to edit this card, your friend can click it to reach this tool's edit page": "You can share the link to edit this card, your friend can click it to reach this tool's edit page",
+  "Ok": "Ok"
 }
