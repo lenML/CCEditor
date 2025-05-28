@@ -26,6 +26,7 @@ import { FreeTagPicker } from "../fields/TagPicker";
 import type { SpecV3 } from "@lenml/char-card-reader";
 import { keysFix } from "../../tools/fixs";
 import { CardFieldLabel } from "../HelpTips/CardFieldLabel";
+import { encodeToTokens } from "../../tools/tokenizer";
 
 export const BookEntryEditor: FC<{
   entry: SpecV3.Lorebook["entries"][number];
@@ -69,9 +70,27 @@ export const BookEntryEditor: FC<{
   return (
     <Card className={styles.bookEntryCard}>
       <div className={styles.bookEntryHeader}>
-        <Text weight="semibold">
-          Entry {index + 1} {entry_title ? `(${entry_title})` : ""}
-        </Text>
+        <span>
+          <Text weight="semibold">
+            Entry {index + 1} {entry_title ? `(${entry_title})` : ""}
+          </Text>
+
+          {expanded ? null : (
+            <Text
+              style={{
+                fontSize: "12px",
+                marginLeft: "1rem",
+                display: "inline-block",
+                textAlign: "right",
+              }}
+            >
+              {t("word_count", {
+                chars: entry.content.split("").length,
+                tokens: encodeToTokens(entry.content).length,
+              })}
+            </Text>
+          )}
+        </span>
         <div>
           {/* 收起展开 */}
           <Tooltip
