@@ -37,17 +37,22 @@ export const ToolTab = ({
   if (!card) return null;
 
   const handleCompile = () => {
-    const compiled = tavern.compile(card, {
-      user,
-      char: assistant,
-    });
-    setResult(compiled);
+    try {
+      const compiled = tavern.compile(card, {
+        user,
+        char: assistant,
+      });
+      setResult(compiled);
+    } catch (error) {
+      console.error(error);
+      alert(`${error}`);
+    }
   };
 
   return (
     <div className={styles.col}>
       <fieldset>
-        <legend>{t("Apply Template")}</legend>
+        <legend>{t("Test Template")}</legend>
         <div className={styles.col}>
           <Field label={t("User Name")}>
             <Input value={user} onChange={(e, data) => setUser(data.value)} />
