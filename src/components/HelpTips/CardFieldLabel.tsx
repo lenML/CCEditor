@@ -14,7 +14,7 @@ export const CardFieldLabel = ({
   return (
     <span>
       <Text>{label}</Text>
-      {tips && <HelpTips tips={tips} />}
+      {tips && <HelpTips spec_key={name} tips={tips} />}
     </span>
   );
 };
