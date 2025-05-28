@@ -53,6 +53,11 @@ export const CharacterBookTab: FC<{
   };
 
   const handleDeleteEntry = (index: any) => {
+    const isConfirm = window.confirm(
+      t("Are you sure you want to delete this entry?")
+    );
+    if (!isConfirm) return;
+
     const newEntries = (bookData.entries || []).filter(
       (_: any, i: any) => i !== index
     );

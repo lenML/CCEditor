@@ -71,6 +71,20 @@ export const BookEntryEditor: FC<{
     <Card className={styles.bookEntryCard}>
       <div className={styles.bookEntryHeader}>
         <span>
+          {/* 收起展开 */}
+          <Tooltip
+            relationship="label"
+            content={expanded ? t("Collapse") : t("Expand")}
+          >
+            <Button
+              icon={
+                expanded ? <ChevronUp24Regular /> : <ChevronDown24Regular />
+              }
+              appearance="subtle"
+              onClick={() => setExpanded(!expanded)}
+              aria-label={expanded ? t("Collapse") : t("Expand")}
+            />
+          </Tooltip>
           <Text weight="semibold">
             Entry {index + 1} {entry_title ? `(${entry_title})` : ""}
           </Text>
@@ -92,21 +106,6 @@ export const BookEntryEditor: FC<{
           )}
         </span>
         <div>
-          {/* 收起展开 */}
-          <Tooltip
-            relationship="label"
-            content={expanded ? t("Collapse") : t("Expand")}
-          >
-            <Button
-              icon={
-                expanded ? <ChevronUp24Regular /> : <ChevronDown24Regular />
-              }
-              appearance="subtle"
-              onClick={() => setExpanded(!expanded)}
-              aria-label={expanded ? t("Collapse") : t("Expand")}
-            />
-          </Tooltip>
-
           <Tooltip content={t("Delete this entry")} relationship="label">
             <Button
               icon={<Delete24Regular />}
