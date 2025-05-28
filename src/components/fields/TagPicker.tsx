@@ -9,7 +9,7 @@ import {
   type TagPickerProps,
   useTagPickerFilter,
 } from "@fluentui/react-tag-picker";
-import { Tag, Avatar, Field } from "@fluentui/react-components";
+import { Tag, Avatar, Field, makeStyles } from "@fluentui/react-components";
 import { fuzzyMatch } from "../../tools/matcher";
 import { keysFix } from "../../tools/fixs";
 
@@ -20,6 +20,16 @@ export type FreeTagPickerProps = {
   placeholder?: string;
 };
 
+const useStyles = makeStyles({
+  listbox: {
+    // maxHeight will be applied only positioning autoSize set.
+    maxHeight: "250px",
+  },
+  option: {
+    height: "46px",
+  },
+});
+
 export const FreeTagPicker: React.FC<FreeTagPickerProps> = ({
   value,
   onChange,
@@ -27,6 +37,8 @@ export const FreeTagPicker: React.FC<FreeTagPickerProps> = ({
   placeholder = "请输入标签",
 }) => {
   const [query, setQuery] = React.useState<string>("");
+
+  const styles = useStyles();
 
   const handleOptionSelect: TagPickerProps["onOptionSelect"] = (_, data) => {
     onChange(keysFix(data.selectedOptions.filter((x) => x !== "no-options")));
@@ -57,6 +69,7 @@ export const FreeTagPicker: React.FC<FreeTagPickerProps> = ({
     noOptionsElement: <span></span>,
     renderOption: (option) => (
       <TagPickerOption
+        className={styles.option}
         key={option}
         media={
           <Avatar shape="square" aria-hidden name={option} color="colorful" />
@@ -88,7 +101,10 @@ export const FreeTagPicker: React.FC<FreeTagPickerProps> = ({
       onOptionSelect={handleOptionSelect}
       // @ts-ignore
       mountNode={document.querySelector(".fui-FluentProvider main")}
-      positioning={"below-start"}
+      positioning={{
+        position: "below",
+        autoSize: "width",
+      }}
     >
       <TagPickerControl>
         <TagPickerGroup>
@@ -114,10 +130,11 @@ export const FreeTagPicker: React.FC<FreeTagPickerProps> = ({
         />
       </TagPickerControl>
 
-      <TagPickerList>
+      <TagPickerList className={styles.listbox}>
         {is_composition ? null : (
           <>
             <TagPickerOption
+              className={styles.option}
               style={{ display: "none" }}
               key={query}
               media={

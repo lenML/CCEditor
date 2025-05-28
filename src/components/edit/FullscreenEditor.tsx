@@ -108,6 +108,7 @@ export function FullscreenEditor(
           title={t("Fullscreen Edit")}
         />
         <Textarea
+          placeholder="no text here."
           {...rest}
           value={currentValue}
           onChange={handleChange}
