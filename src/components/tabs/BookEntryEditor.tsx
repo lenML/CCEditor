@@ -57,11 +57,20 @@ export const BookEntryEditor: FC<{
   // 是否展开
   const [expanded, setExpanded] = useState(false);
 
+  let entry_title = entry.comment;
+  if (!entry_title && entry.content.trim()) {
+    entry_title =
+      entry.content
+        .split("\n")
+        .filter((x) => x.trim())[0]
+        .slice(0, 5) + "...";
+  }
+
   return (
     <Card className={styles.bookEntryCard}>
       <div className={styles.bookEntryHeader}>
         <Text weight="semibold">
-          Entry {index + 1} {entry.comment ? `(${entry.comment})` : ""}
+          Entry {index + 1} {entry_title ? `(${entry_title})` : ""}
         </Text>
         <div>
           {/* 收起展开 */}

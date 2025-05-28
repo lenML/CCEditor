@@ -31,6 +31,7 @@ import {
   DrawerHeaderTitle,
   DrawerBody,
   type SelectTabData,
+  Input,
 } from "@fluentui/react-components";
 
 import {
@@ -55,6 +56,8 @@ import { AvatarPanel } from "./AvatarPanel/AvatarPanel";
 import { LangSwitch } from "./LangSwitch";
 import { createBlackImage } from "../tools/images";
 import { ToolTab } from "./tabs/ToolTab";
+import { useGlobalPaste } from "./useGlobalPaste";
+import { StartPanel } from "./StartPanel/StartPanel";
 
 function getDefaultFormData() {
   return {
@@ -92,7 +95,6 @@ export function App() {
   const [avatarPreview, setAvatarPreview] = useState<null | string>(null);
   const [originalFile, setOriginalFile] = useState<null | ArrayBuffer>(null);
   const [originalFileName, setOriginalFileName] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [history, setHistory] = useState<any[]>([]);
   const [isHistoryDrawerOpen, setIsHistoryDrawerOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState("basic");
@@ -104,7 +106,6 @@ export function App() {
     open: false,
     index: -1,
   });
-  const [dragHighlight, setDragHighlight] = useState(false);
 
   useEffect(() => {
     const storedHistory = localStorage.getItem(HISTORY_KEY);
@@ -121,57 +122,6 @@ export function App() {
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [isDirty]);
-
-  const handleFileDrop = useCallback(async (file: File) => {
-    if (
-      !file ||
-      (!file.type.startsWith("image/") && file.type !== "application/json")
-    ) {
-      alert("Please upload an image file (PNG, WEBP, JPG, JSON).");
-      return;
-    }
-    if (isDirtyRef.current) {
-      alert(
-        "You have unsaved changes. Please save or discard them before loading a new card."
-      );
-      return;
-    }
-    setIsLoading(true);
-    setOriginalFileName(file.name);
-    // @ts-ignore
-    document.getElementById("fileInput").value = "";
-    async function readCardFile() {
-      if (file.type === "application/json") {
-        return CharacterCard.from_json(JSON.parse(await file.text()));
-      }
-      const arrayBuffer = await file.arrayBuffer();
-      setOriginalFile(arrayBuffer);
-      const card = await CharacterCard.from_file(arrayBuffer);
-      return card;
-    }
-    try {
-      const card = await readCardFile();
-      if (card.name === "unknown") {
-        // 解析失败
-        throw new Error("Failed to parse character card");
-      }
-      setCharacterCard(card);
-      const v3Data = card.toSpecV3().data;
-      setFormDataFromCardData(v3Data);
-      setAvatarPreview(card.avatar || null);
-      setIsDirty(false);
-      addToHistory(v3Data, card.avatar, card.spec, card.spec_version);
-    } catch (error) {
-      console.error("Error reading card:", error);
-      alert(
-        // @ts-ignore
-        `Error reading card: ${error?.message}. Is this a valid character card image?`
-      );
-      resetEditorState();
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
 
   const setFormDataFromCardData = (
     cardData: SpecV3.CharacterCardV3["data"]
@@ -352,45 +302,6 @@ export function App() {
     setSelectedTab(data.value as any);
   };
 
-  const dragEvents = {
-    onDragOver: (e: React.DragEvent<HTMLElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setDragHighlight(true);
-    },
-    onDragEnter: (e: React.DragEvent<HTMLElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setDragHighlight(true);
-    },
-    onDragLeave: (e: React.DragEvent<HTMLElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget as any))
-        return;
-      setDragHighlight(false);
-    },
-    onDrop: (e: React.DragEvent<HTMLElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setDragHighlight(false);
-      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-        handleFileDrop(e.dataTransfer.files[0]);
-        e.dataTransfer.clearData();
-      }
-    },
-  };
-
-  // bind window drop
-  useGlobalDrop((ev) => {
-    ev.preventDefault();
-    ev.stopPropagation();
-    if (ev.dataTransfer?.files && ev.dataTransfer.files.length > 0) {
-      handleFileDrop(ev.dataTransfer.files[0]);
-      ev.dataTransfer.clearData();
-    }
-  });
-
   async function createNewCharacter() {
     const tempAvatar = createBlackImage("CCEditor Avatar");
     const avatar_url = tempAvatar.toDataURL();
@@ -529,90 +440,20 @@ export function App() {
 
       {/* Main Content Area */}
       <main className={styles.mainContent}>
-        <div
-          style={{
-            // This outer div groups the "Create New" and "Drop Area" options.
-            // It controls their collective visibility and layout.
-            display: characterCard ? "none" : "flex",
-            flexDirection: "column",
-            alignItems: "center", // Center the button, "OR" text, and drop area horizontally.
-            gap: tokens.spacingVerticalL, // Consistent spacing between the elements.
-            // Optional: Add padding to this container if it needs more breathing room,
-            // e.g., padding: `${tokens.spacingVerticalXXL} 0` for top/bottom padding.
-            // This depends on where this block is placed in the overall page structure.
-            // width: "100%", // Ensures the container can center its content if it has a maxWidth itself.
-          }}
-        >
-          {/* Option 1: Create New Character Button */}
-          <Button
-            appearance="primary"
-            // size="large" // Consider using a larger button size if available and desired for visual balance
-            onClick={createNewCharacter}
-          >
-            {t("Create New Character")}
-          </Button>
-
-          {/* Separator Text */}
-          <Text weight="semibold" size={400}>
-            {t("OR")}
-          </Text>
-
-          {/* Option 2: Drop Area for Uploading Character Card */}
-          <div
-            className={`${styles.dropArea} ${
-              dragHighlight ? styles.dropAreaHighlight : ""
-            }`}
-            {...dragEvents}
-            onClick={() => document.getElementById("fileInput")?.click()}
-            style={{
-              // The styles.dropArea class provides most of the appearance.
-              // Add width constraints here to manage its size effectively within the centered flex layout.
-              width: "100%", // Allows the drop area to be responsive.
-              maxWidth: "600px", // Prevents the drop area from becoming too wide on large screens.
-              // Adjust this value as needed for optimal visual balance.
-              // The `display: characterCard ? "none" : undefined` is removed from here,
-              // as it's now handled by the parent wrapper div.
-            }}
-          >
-            {isLoading ? (
-              <Spinner labelPosition="below" label={t("Processing card...")} />
-            ) : (
-              <>
-                <Text size={400}>
-                  {t("Drag & Drop Character Card Image Here")}
-                </Text>
-                <Text
-                  size={300}
-                  style={{ marginTop: tokens.spacingVerticalSNudge }}
-                >
-                  (.png, .webp, .jpg, .json)
-                </Text>
-                <Text size={400} style={{ marginTop: tokens.spacingVerticalS }}>
-                  {t("or")}{" "}
-                  {/* This "or" distinguishes Drag & Drop from "Select File" button */}
-                </Text>
-                <Button
-                  appearance="outline"
-                  style={{ marginTop: tokens.spacingVerticalS }}
-                >
-                  {t("Select File")}
-                </Button>
-              </>
-            )}
-            <input
-              type="file"
-              id="fileInput"
-              hidden
-              // 支持 png webp json
-              accept="image/png,image/webp,application/json"
-              onChange={(e) =>
-                e.target.files &&
-                e.target.files.length > 0 &&
-                handleFileDrop(e.target.files[0])
-              }
-            />
-          </div>
-        </div>
+        {characterCard ? null : (
+          <StartPanel
+            createNewCharacter={createNewCharacter}
+            setOriginalFileName={setOriginalFileName}
+            setOriginalFile={setOriginalFile}
+            setCharacterCard={setCharacterCard}
+            setFormDataFromCardData={setFormDataFromCardData}
+            setAvatarPreview={setAvatarPreview}
+            setIsDirty={setIsDirty}
+            addToHistory={addToHistory}
+            resetEditorState={resetEditorState}
+            isDirtyRef={isDirtyRef}
+          />
+        )}
 
         <div
           className={styles.editorLayout}
