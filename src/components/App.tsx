@@ -301,7 +301,18 @@ export function App() {
         0,
         MAX_HISTORY_ITEMS
       );
-      localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+      try {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+      } catch (error) {
+        if (error instanceof Error && error.name === "QuotaExceededError") {
+          alert(
+            "Local storage quota exceeded. Some history items may be lost."
+          );
+          return prevHistory;
+        } else {
+          throw error;
+        }
+      }
       return updatedHistory;
     });
   };
