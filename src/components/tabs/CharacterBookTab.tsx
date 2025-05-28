@@ -13,6 +13,7 @@ import { Add24Regular } from "@fluentui/react-icons";
 import { useI18n } from "../../tools/i18n";
 import type { SpecV3 } from "@lenml/char-card-reader";
 import { keysFix } from "../../tools/fixs";
+import { CardFieldLabel } from "../HelpTips/CardFieldLabel";
 
 export const CharacterBookTab: FC<{
   bookData: SpecV3.Lorebook;
@@ -73,7 +74,15 @@ export const CharacterBookTab: FC<{
 
   return (
     <div>
-      <Field label={t("Book Name")}>
+      <Field
+        label={
+          <CardFieldLabel
+            name={"character_book"}
+            label={t("Book Name")}
+            tips={t(`help-character_book`)}
+          />
+        }
+      >
         <Input
           value={bookData?.name || ""}
           onChange={(_: any, data: { value: any }) =>

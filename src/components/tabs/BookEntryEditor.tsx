@@ -25,6 +25,7 @@ import { useI18n } from "../../tools/i18n";
 import { FreeTagPicker } from "../fields/TagPicker";
 import type { SpecV3 } from "@lenml/char-card-reader";
 import { keysFix } from "../../tools/fixs";
+import { CardFieldLabel } from "../HelpTips/CardFieldLabel";
 
 export const BookEntryEditor: FC<{
   entry: SpecV3.Lorebook["entries"][number];

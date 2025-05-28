@@ -73,7 +73,8 @@ export const translate = (
 
   // 支持使用 array 表示多行 string
   if (Array.isArray(tpl)) {
-    tpl = tpl.flat().join("\n");
+    // 这里加两个空格是为了方便拼接渲染 markdown
+    tpl = tpl.flat().join("  \n");
   }
 
   return tpl.replace(/\{\{(.*?)\}\}/g, (_, k) => vars?.[k.trim()] ?? k);

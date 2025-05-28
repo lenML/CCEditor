@@ -4,6 +4,7 @@ import { useStyles } from "../useStyles";
 import { FullscreenEditor } from "../edit/FullscreenEditor";
 import { useMemo } from "react";
 import { TextArrayEditor } from "./TextArrayEditor/TextArrayEditor";
+import { CardFieldLabel } from "../HelpTips/CardFieldLabel";
 
 export const DetailsTab = ({
   formData,
@@ -98,7 +99,13 @@ export const DetailsTab = ({
       {detailsFields.map((fc) => (
         <Field
           key={fc.name}
-          label={fc.label}
+          label={
+            <CardFieldLabel
+              name={fc.name}
+              label={fc.label}
+              tips={t(`help-${fc.name}`)}
+            />
+          }
           className={fc.fullWidth ? styles.fullWidth : ""}
         >
           <fc.component

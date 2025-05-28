@@ -60,5 +60,122 @@
   "User Name": "User Name",
   "Assistant Name": "Assistant Name",
   "Generate": "Generate",
-  "Output Result": "Output Result"
+  "Output Result": "Output Result",
+  "help-name": [
+    "✅ **Pygmalion**: Character Name",
+    "The character's name",
+    "",
+    "✅ **Text Generation**: Bot's name",
+    "",
+    "✅ **TavernAI**: Used but uneditable",
+    "",
+    "✅ **CharacterAI**: Name",
+    "This will be the name your Character uses in chat"
+  ],
+  "help-nickname": "The value of this field MUST be a string or undefined. if the value is present, the syntax `{{char}}`, `<char>` and `<bot>` SHOULD be replaced with the value of this field in the prompt instead of the `name` field.",
+  "help-creator": [
+    "This field *MUST NOT* be used for prompt engineering.",
+    "This field *MAY* be shown on frontends."
+  ],
+  "help-character_version": [
+    "This field *MUST NOT* be used for prompt engineering.",
+    "This field *MAY* be shown on frontends and used for sorting."
+  ],
+  "help-tags": [
+    "There is no restriction on what strings are valid.",
+    "This field *SHOULD NOT* be used in the prompt engineering.",
+    "This field *MAY* be used for frontend sorting/filtering purposes (*SHOULD* be case-insensitive)."
+  ],
+  "help-description": "The value of this field *MUST* be a string or undefined. this field *MAY* be used to add comments to the Lorebook. this field *SHOULD NOT* be used on prompt engineering.",
+  "help-personality": [
+    "✅ **Pygmalion**: Character Persona",
+    "Describe the character's persona here. Think of this as CharacterAI's description + definitions in one box.",
+    "",
+    "✅ **Text Generation**: Context (Persona)",
+    "",
+    "✅ **TavernAI**: Description",
+    "Description of personality and other characteristics",
+    "",
+    "✅ **CharacterAI**: Long Description",
+    "In a few sentences, how would your Character describe themselves?"
+  ],
+  "help-scenario": [
+    "✅ **Pygmalion**: Scenario",
+    "Optionally, describe the starting scenario in a few short sentences.",
+    "",
+    "✅ **Text Generation**: Context (Scenario)",
+    "",
+    "✅ **TavernAI**: Scenario",
+    "Circumstances and context of the dialogue",
+    "",
+    "❌ **CharacterAI**: Not used"
+  ],
+  "help-greeting": [
+    "✅ **Pygmalion**: Example Chat",
+    "Optionally, write in an example chat here. This is useful for showing how the character should behave, for example.",
+    "",
+    "✅ **Text Generation**: Used but uneditable",
+    "",
+    "✅ **TavernAI**: Examples of dialogue",
+    "Forms a personality more clearly",
+    "",
+    "✅ **CharacterAI**: Definition",
+    "Example conversations and information to define your Character"
+  ],
+  "help-first_mes": [
+    "First message sent by the chatbot, also known as \"greeting.\"",
+    "The chatbot **MUST** be the first one to send a message, and that message\r\n**MUST** be the string inside `first_mes`."
+  ],
+  "help-mes_example": [
+    "Example conversations. It **MUST** be expected that botmakers format example\r\nconversations like this:",
+    "```\r\n<START>\r\n{{user}}: hi\r\n{{char}}: hello\r\n<START>\r\n{{user}}: hi\r\nHaruhi: hello\r\n```",
+    "`<START>` marks the beginning of a new conversation and **MAY** be transformed\r\n(e.g. into an OpenAI System message saying \"Start a new conversation.\")",
+    "Example conversations **SHOULD**, by default, only be included in the prompt\r\nuntil actual conversation fills up the context size, and then be pruned to make\r\nroom for actual conversation history. This behavior **MAY** be configurable by the user."
+  ],
+  "help-creator_notes": [
+    "The value of this field _MUST_ be a string. this value _MUST_ considered as creator notes if `creator_notes_multilingual` is undefined. if `creator_notes_multilingual` is present, the application _SHOULD_ considered this as a creator note for `en` language, if `creator_notes_multilingual` does not have a key for `en` language. if is not, the application _SHOULD_ ignore this field."
+  ],
+  "help-system_prompt": [
+    "Frontends' default behavior **MUST** be to replace what users understand to be the \"system prompt\" global setting with the value inside this field. (Exception: if the field value is an empty string, the user's \"system prompt\" setting or an internal fallback **MUST** be used.)",
+    "Frontends **MUST** support the `{{original}}` placeholder, which is replaced with the \"system prompt\" string that the frontend would have used in the absence of a character `system_prompt` (e.g. the user's own system prompt).",
+    "Frontends **MAY** offer ways to replace or supplement character cards' system prompt (in addition to directly editing the card), but it **MUST NOT** be the default behavior."
+  ],
+  "help-post_history_instructions": [
+    "Frontends' default behavior **MUST** be to replace what users understand to be the \"ujb/jailbreak\" setting with the value inside this field. (Exception: if the field value is an empty string, the user's \"ujb/jailbreak\" setting or an internal fallback **MUST** be used.)",
+    "Frontends **MUST** support the `{{original}}` placeholder, which is replaced with the \"ujb/jailbreak\" string that the frontend would have used in the absence of a character `system_prompt` (e.g. the user's own ujb/jailbreak).",
+    "Frontends **MAY** offer ways to replace or supplement character cards' post_history_instructions (in addition to directly editing the card), but it **MUST NOT** be the default behavior."
+  ],
+  "help-alternate_greetings": [
+    "Array of strings.",
+    "Frontends **MUST** offer \"swipes\" on character first messages, each string inside this array being an additional \"swipe\"."
+  ],
+  "help-character_book": [
+    "The value of this field _MUST_ be a Lorebook object or undefined. if this field is present, the application _SHOULD_ consider this field as a character specific lorebook. applications MUST use the character lorebook by default and Character editors MUST save character lorebooks in the specified format. Character lorebook _SHOULD_ stacked with can be defined as a global lorebook."
+  ],
+  "help-extensions": [
+    "This field **MUST** default to an empty object (`{}`).",
+    "This field **MAY** contain any arbitrary JSON key-value pair."
+  ],
+  "help-creator_notes_multilingual": [
+    "The value of this field _MUST_ be a object or undefined. if this field is present, the application _MUST_ consider this field as a multilingual creator notes. the key of the object _MUST_ be a language code in ISO 639-1, without region code. the value of the object _MUST_ be a string. the application _SHOULD_ display the creator notes in the language that the user's client is set to. the application _MAY_ provide language selection for creator notes."
+  ],
+  "help-source": [
+    "the value of this field _MUST_ be a array string or undefined. if the value is present, the application _SHOULD_ determine as an array of the ID or a HTTP/HTTPS URL that points to the source of the character card.",
+    "The field _SHOULD NOT_ be editable by the user. If the `source` is a URI, the application _MAY_ provide a way to open the value of the `source` field in a new tab.",
+    "applications _SHOULD_ only append elements to the `source` field and _SHOULD NOT_ remove or modify the elements in the `source` field if the element isn't added by application. elements appended by application _MAY_ be editable by the application.",
+    "However, if it significantly slows down the application, or it makes the application hard to use, or the source is harmful, the application _MAY_ remove the elements in the `source` field. if the application removes the elements in the `source` field, the application _SHOULD_ alert the user that the source is removed."
+  ],
+  "help-assets": [
+    "The value of this field _MUST_ be an array of objects or undefined. if this field is undefined, the application _MUST_ behave as if the value is this array:"
+  ],
+  "help-group_only_greetings": [
+    "The value of this field _MUST_ be an array of string. this field _MUST_ be present. this field _MAY_ be empty array. this field _MUST_ be used to define the greetings that the character card would use.",
+    "This value _SHOULD_ be considered as the additional greetings that the character card would use, only for group chats."
+  ],
+  "help-creation_date": [
+    "The value of this field _MUST_ be a number or undefined. this field _MAY_ be used to determine the creation date of the character card. the value _MUST_ be a unix timestamp in seconds. application _SHOULD_ add this field when the character card is created. application _SHOULD NOT_ allow the user to edit this field. application _SHOULD NOT_ modify this field if the value is already present. the time _MUST_ be Unix timestamp in seconds, in UTC timezone. application _MAY_ put `0` instead to this field to determine that the creation date is unknown for privacy reasons and more."
+  ],
+  "help-modification_date": [
+    "The value of this field _MUST_ be a number or undefined. this field _MAY_ be used to determine the modification date of the character card. the value _MUST_ be a unix timestamp in seconds. application _SHOULD_ add or modify this field when the character card is exported, and _MAY_ modify this field when the character card is modified. application _SHOULD NOT_ allow the user to edit this field. the time _MUST_ be Unix timestamp in seconds, in UTC timezone. application _MAY_ put `0` instead to this field to determine that the modification date is unknown for privacy reasons and more."
+  ]
 }

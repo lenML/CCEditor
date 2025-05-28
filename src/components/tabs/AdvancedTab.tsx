@@ -10,6 +10,7 @@ import { useStyles } from "../useStyles";
 import { useMemo, useState } from "react";
 import { FullscreenEditor } from "../edit/FullscreenEditor";
 import { formatDateData } from "../../tools/times";
+import { CardFieldLabel } from "../HelpTips/CardFieldLabel";
 
 const DateText = ({ date }: { date: any }) => (
   <Text>{date ? formatDateData(date).toLocaleString() : "N/A"}</Text>
@@ -129,7 +130,13 @@ export const AdvancedTab = ({
       {advancedFields.map((fc) => (
         <Field
           key={fc.name}
-          label={fc.label}
+          label={
+            <CardFieldLabel
+              name={fc.name}
+              label={fc.label}
+              tips={t(`help-${fc.name}`)}
+            />
+          }
           className={fc.fullWidth ? styles.fullWidth : ""}
         >
           <fc.component
@@ -149,10 +156,26 @@ export const AdvancedTab = ({
           marginTop: tokens.spacingVerticalS,
         }}
       >
-        <Field label={t("Creation Date")}>
+        <Field
+          label={
+            <CardFieldLabel
+              name={"creation_date"}
+              label={t("Creation Date")}
+              tips={t(`help-creation_date`)}
+            />
+          }
+        >
           <DateText date={formData.creation_date} />
         </Field>
-        <Field label={t("Modification Date")}>
+        <Field
+          label={
+            <CardFieldLabel
+              name={"modification_date"}
+              label={t("Modification Date")}
+              tips={t(`help-modification_date`)}
+            />
+          }
+        >
           <DateText date={formData.modification_date} />
         </Field>
       </div>

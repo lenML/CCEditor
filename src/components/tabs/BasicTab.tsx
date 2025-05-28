@@ -5,6 +5,8 @@ import { useMemo } from "react";
 import { FullscreenEditor } from "../edit/FullscreenEditor";
 import { FreeTagPicker } from "../fields/TagPicker";
 import tags from "../../assets/tags.json";
+import { HelpTips } from "../HelpTips/HelpTips";
+import { CardFieldLabel } from "../HelpTips/CardFieldLabel";
 
 export const BasicTab = ({
   formData,
@@ -72,7 +74,13 @@ export const BasicTab = ({
       {basicInfoFields.map((fc) => (
         <Field
           key={fc.name}
-          label={fc.label}
+          label={
+            <CardFieldLabel
+              name={fc.name}
+              label={fc.label}
+              tips={t(`help-${fc.name}`)}
+            />
+          }
           className={fc.fullWidth ? styles.fullWidth : ""}
         >
           <fc.component

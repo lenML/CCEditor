@@ -179,4 +179,81 @@ export const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
   },
+  tips_markdown_body: {
+    fontFamily: tokens.fontFamilyMonospace,
+    fontSize: tokens.fontSizeBase200,
+    // backgroundColor: tokens.colorNeutralBackgroundDisabled,
+    minHeight: "80px",
+    padding: "8px",
+    ...shorthands.borderRadius(tokens.borderRadiusMedium),
+    ...shorthands.overflow("auto"),
+
+    // 子元素统一样式
+    "& p": {
+      margin: "8px 0",
+      lineHeight: "1.6",
+    },
+
+    "& code": {
+      fontFamily: tokens.fontFamilyMonospace,
+      backgroundColor: tokens.colorNeutralBackground1,
+      padding: "2px 4px",
+      borderRadius: tokens.borderRadiusSmall,
+      fontSize: "90%",
+    },
+
+    "& pre": {
+      backgroundColor: tokens.colorNeutralBackground1,
+      padding: "12px",
+      overflowX: "auto",
+      ...shorthands.borderRadius(tokens.borderRadiusMedium),
+      ...shorthands.border("1px", "solid", tokens.colorNeutralStroke1),
+      fontSize: tokens.fontSizeBase200,
+      lineHeight: "1.5",
+    },
+
+    "& pre code": {
+      padding: "0",
+      backgroundColor: "transparent",
+    },
+
+    "& a": {
+      color: tokens.colorBrandForegroundLink,
+      textDecoration: "underline",
+      ":hover": {
+        color: tokens.colorBrandForegroundLinkHover,
+      },
+    },
+
+    "& ul": {
+      paddingLeft: "1.5em",
+      margin: "8px 0",
+    },
+
+    "& li": {
+      margin: "4px 0",
+    },
+
+    "& strong": {
+      fontWeight: tokens.fontWeightBold,
+    },
+
+    "& em": {
+      fontStyle: "italic",
+    },
+
+    "& blockquote": {
+      borderLeft: `4px solid ${tokens.colorNeutralStroke1}`,
+      margin: "8px 0",
+      paddingLeft: "12px",
+      color: tokens.colorNeutralForeground3,
+      fontStyle: "italic",
+    },
+
+    "& hr": {
+      border: "none",
+      borderTop: `1px solid ${tokens.colorNeutralStroke2}`,
+      margin: "16px 0",
+    },
+  },
 });
