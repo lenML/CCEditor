@@ -179,5 +179,6 @@
     "The value of this field _MUST_ be a number or undefined. this field _MAY_ be used to determine the modification date of the character card. the value _MUST_ be a unix timestamp in seconds. application _SHOULD_ add or modify this field when the character card is exported, and _MAY_ modify this field when the character card is modified. application _SHOULD NOT_ allow the user to edit this field. the time _MUST_ be Unix timestamp in seconds, in UTC timezone. application _MAY_ put `0` instead to this field to determine that the modification date is unknown for privacy reasons and more."
   ],
   "Load image from url": "Load image from url",
-  "Load": "Load"
+  "Load": "Load",
+  "Copy/Paste character card current page will auto detect": "Copy/Paste character card current page will auto detect"
 }

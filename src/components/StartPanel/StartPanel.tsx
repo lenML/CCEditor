@@ -185,7 +185,7 @@ export const StartPanel = ({
         // size="large" // Consider using a larger button size if available and desired for visual balance
         onClick={createNewCharacter}
       >
-        {t("Create New Character")}
+        1. {t("Create New Character")}
       </Button>
 
       {/* Separator Text */}
@@ -214,7 +214,9 @@ export const StartPanel = ({
           <Spinner labelPosition="below" label={t("Processing card...")} />
         ) : (
           <>
-            <Text size={400}>{t("Drag & Drop Character Card Image Here")}</Text>
+            <Text size={400}>
+              2. {t("Drag & Drop Character Card Image Here")}
+            </Text>
             <Text
               size={300}
               style={{ marginTop: tokens.spacingVerticalSNudge }}
@@ -248,7 +250,7 @@ export const StartPanel = ({
       </Text>
       {/* Option 3: 从图片url提取 */}
       <div style={{ width: "40vw" }}>
-        <Field label={t("Load image from url")}>
+        <Field label={"3. " + t("Load image from url")}>
           <Input
             placeholder="https://example.com/avatar.png"
             onChange={(e) => {
@@ -267,6 +269,16 @@ export const StartPanel = ({
           />
         </Field>
       </div>
+
+      {/* Option 3: 复制粘贴文件 */}
+      <Text weight="semibold" size={400}>
+        {t("OR")}
+      </Text>
+      <p>
+        <Text weight="semibold" size={400}>
+          4. {t("Copy/Paste character card current page will auto detect")}
+        </Text>
+      </p>
     </div>
   );
 };

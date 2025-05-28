@@ -191,5 +191,6 @@
     "このフィールドの値は数値またはundefinedでなければなりません。このフィールドはキャラクターカードの変更日を決定するために使用可能です。値はUnixタイムスタンプ（秒）でなければなりません。アプリケーションはキャラクターカードをエクスポートする際にこのフィールドを追加または変更するべきであり、キャラクターカードが変更される際にこのフィールドを更新してもよいです。アプリケーションはユーザーがこのフィールドを編集することを許可すべきではありません。時間はUTCタイムゾーンのUnixタイムスタンプ（秒）でなければなりません。アプリケーションはプライバシーなどの理由で変更日が不明であることを示すために、このフィールドに `0` を入力してもよいです。"
   ],
   "Load image from url": "Load image from url",
-  "Load": "Load"
+  "Load": "Load",
+  "Copy/Paste character card current page will auto detect": "Copy/Paste character card current page will auto detect"
 }

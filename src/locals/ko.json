@@ -191,5 +191,6 @@
     "이 필드의 값은 숫자이거나 undefined이어야 합니다. 이 필드는 캐릭터 카드의 수정 날짜를 결정하는 데 사용될 수 있습니다. 값은 Unix 타임스탬프(초)여야 합니다. 애플리케이션은 캐릭터 카드를 내보낼 때 이 필드를 추가하거나 수정해야 하며 캐릭터 카드가 수정될 때 이 필드를 업데이트할 수 있습니다. 애플리케이션은 사용자가 이 필드를 편집할 수 없도록 해야 합니다. 시간은 UTC 시간대의 Unix 타임스탬프(초)여야 합니다. 애플리케이션은 개인정보 보호 등의 이유로 수정 날짜를 알 수 없음을 나타내기 위해 이 필드에 `0`을 입력할 수 있습니다."
   ],
   "Load image from url": "Load image from url",
-  "Load": "Load"
+  "Load": "Load",
+  "Copy/Paste character card current page will auto detect": "Copy/Paste character card current page will auto detect"
 }
