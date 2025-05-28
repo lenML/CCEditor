@@ -19,9 +19,7 @@ import { Editor } from "@monaco-editor/react";
 import useResizeObserver from "@react-hook/resize-observer";
 import { editor } from "monaco-editor";
 import { useI18n } from "../../tools/i18n";
-import { fromPreTrained } from "@lenml/tokenizer-claude";
-
-const tokenizer = fromPreTrained();
+import { encodeToTokens } from "../../tools/tokenizer";
 
 interface FullscreenEditorProps {
   window_title?: string;
@@ -126,7 +124,7 @@ export function FullscreenEditor(
         >
           {t("word_count", {
             chars: currentValue.split("").length,
-            tokens: tokenizer.encode(currentValue).length,
+            tokens: encodeToTokens(currentValue).length,
           })}
         </Text>
       </div>
@@ -185,7 +183,7 @@ export function FullscreenEditor(
                 {editor_language.toUpperCase()} |{" "}
                 {t("word_count", {
                   chars: currentValue.split("").length,
-                  tokens: tokenizer.encode(currentValue).length,
+                  tokens: encodeToTokens(currentValue).length,
                 })}
               </Text>
             </DialogContent>
