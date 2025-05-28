@@ -123,8 +123,11 @@ export function App() {
   }, [isDirty]);
 
   const handleFileDrop = useCallback(async (file: File) => {
-    if (!file || !file.type.startsWith("image/")) {
-      alert("Please upload an image file (PNG, WEBP, JPG).");
+    if (
+      !file ||
+      (!file.type.startsWith("image/") && file.type !== "application/json")
+    ) {
+      alert("Please upload an image file (PNG, WEBP, JPG, JSON).");
       return;
     }
     if (isDirtyRef.current) {
@@ -137,10 +140,17 @@ export function App() {
     setOriginalFileName(file.name);
     // @ts-ignore
     document.getElementById("fileInput").value = "";
-    try {
+    async function readCardFile() {
+      if (file.type === "application/json") {
+        return CharacterCard.from_json(JSON.parse(await file.text()));
+      }
       const arrayBuffer = await file.arrayBuffer();
       setOriginalFile(arrayBuffer);
       const card = await CharacterCard.from_file(arrayBuffer);
+      return card;
+    }
+    try {
+      const card = await readCardFile();
       if (card.name === "unknown") {
         // 解析失败
         throw new Error("Failed to parse character card");
@@ -564,7 +574,7 @@ export function App() {
                   size={300}
                   style={{ marginTop: tokens.spacingVerticalSNudge }}
                 >
-                  (.png, .webp, .jpg)
+                  (.png, .webp, .jpg, .json)
                 </Text>
                 <Text size={400} style={{ marginTop: tokens.spacingVerticalS }}>
                   {t("or")}{" "}
@@ -582,7 +592,8 @@ export function App() {
               type="file"
               id="fileInput"
               hidden
-              accept="image/*" // Accepts any image file
+              // 支持 png webp json
+              accept="image/png,image/webp,application/json"
               onChange={(e) =>
                 e.target.files &&
                 e.target.files.length > 0 &&
@@ -627,7 +638,8 @@ export function App() {
               <Tab icon={<Settings24Regular />} value="advanced">
                 {t("Advanced")}
               </Tab>
-              <hr />
+
+              <Divider vertical style={{ height: "100%", flex: 0 }}></Divider>
               <Tab icon={<Settings24Regular />} value="tool">
                 {t("Tool")}
               </Tab>
