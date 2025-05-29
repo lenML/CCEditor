@@ -1,7 +1,7 @@
 {
   "name": "cc-editor",
   "private": true,
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -21,6 +21,7 @@
     "@quik-fe/stand": "^1.1.10",
     "@react-hook/resize-observer": "^2.0.2",
     "@tailwindcss/vite": "^4.1.7",
+    "@vitejs/plugin-legacy": "^6.1.1",
     "crc-32": "^1.2.2",
     "filesize": "^10.1.6",
     "handlebars": "^4.7.8",
