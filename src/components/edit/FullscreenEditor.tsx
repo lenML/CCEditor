@@ -164,8 +164,41 @@ export function FullscreenEditor(
                   minimap: { enabled: false },
                   wordWrap: "on",
                 }}
-                onMount={(editorInstance) => {
-                  editorRef.current = editorInstance;
+                onMount={(editor, monaco) => {
+                  editorRef.current = editor;
+                  monaco.languages.registerCompletionItemProvider("markdown", {
+                    provideCompletionItems(model, position, context, token) {
+                      return {
+                        suggestions: [
+                          {
+                            label: "模板",
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            documentation: "人设模板",
+                            insertTextRules:
+                              monaco.languages.CompletionItemInsertTextRule
+                                .InsertAsSnippet,
+                            insertText: `<worldview>
+$\{1:世界观}
+</worldview>
+
+<character name="$\{2:角色名}">
+job: $\{3:角色职业}
+appearance: $\{2:角色名} $\{4:角色描述}
+personalities: $\{5:角色性格}
+skills: $\{6:角色技能}
+$\{7:其他设定}
+</character>`,
+                            range: {
+                              startLineNumber: position.lineNumber,
+                              startColumn: position.column - 1,
+                              endLineNumber: position.lineNumber,
+                              endColumn: position.column,
+                            },
+                          },
+                        ],
+                      };
+                    },
+                  });
                 }}
               />
               <Text
