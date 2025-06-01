@@ -5,19 +5,90 @@
   <meta charset="UTF-8" />
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎭</text></svg>" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./icon_180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./icon_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./icon_16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CCEditor - Character Card Editor</title>
-  <script type="module" crossorigin src="./assets/index-Dx9cIdBA.js"></script>
+
+  <title>CCEditor - Online AI Character Card Editor | Multi-Format Support</title>
+  <meta name="description"
+    content="CCEditor: A free, open-source online editor for AI character cards. Supports multiple formats (v1, v2, v3), multi-language UI, local history, and direct URL loading. Ideal for SillyTavern and AI enthusiasts." />
+  <meta name="keywords"
+    content="character card editor, ai character, cceditor, sillytavern, prompt editor, character definition, online editor, open source, v1 card, v2 card, v3 card, ai tools, character creation" />
+  <meta name="author" content="lenML" />
+  <link rel="canonical" href="https://lenml.github.io/CCEditor/" />
+
+  <meta property="og:title" content="CCEditor - Online AI Character Card Editor" />
+  <meta property="og:description"
+    content="Create and edit AI character cards with CCEditor. Supports multiple formats, languages, and features a VSCode-like editor. Free and open-source." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lenml.github.io/CCEditor/" />
+  <meta property="og:image" content="https://lenml.github.io/CCEditor/share_screenshot.jpg" />
+  <meta property="og:site_name" content="CCEditor" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="zh_CN" />
+  <meta property="og:locale:alternate" content="ja_JP" />
+  <meta property="og:locale:alternate" content="ko_KR" />
+
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CCEditor - Online AI Character Card Editor" />
+  <meta name="twitter:description"
+    content="CCEditor: A free, open-source online editor for AI character cards. Supports multiple formats (v1, v2, v3), multi-language UI, and more." />
+  <meta name="twitter:image" content="https://lenml.github.io/CCEditor/share_screenshot.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CCEditor",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Web Browser",
+    "description": "An online character card editor for AI character definitions. Supports multiple formats (v1, v2, v3), multi-language UI, local history, built-in code editor, export options, and direct card loading via URL.",
+    "url": "https://lenml.github.io/CCEditor/",
+    "screenshot": "https://lenml.github.io/CCEditor/share_screenshot.jpg",
+    "softwareVersion": "1.0.7",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "lenML",
+      "name": "lenML",
+      "url": "https://github.com/lenML"
+    },
+    "keywords": "character card editor, ai character, cceditor, sillytavern, prompt editor, character definition, online editor, open source",
+    "inLanguage": ["en", "zh", "ja", "ko"],
+    "license": "https://spdx.org/licenses/AGPL-3.0-only.html"
+  }
+  </script>
+
+  <script type="module" crossorigin src="./assets/index-i8WqH68s.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-75maEIN6.css">
   <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();if(location.protocol!="file:"){window.__vite_is_modern_browser=true}</script>
   <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <noscript>
+      <h1>CCEditor - AI Character Card Editor</h1>
+      <p>
+        CCEditor is an online tool for creating and editing AI character cards.
+        It supports multiple formats, languages, and offers a built-in code editor.
+        Please enable JavaScript to use CCEditor.
+      </p>
+      <p>
+        Visit our project on <a href="https://github.com/lenML/CCEditor">GitHub</a>.
+      </p>
+    </noscript>
+  </div>
   <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
   <script nomodule crossorigin id="vite-legacy-polyfill" src="./assets/polyfills-legacy-SdvnNBGm.js"></script>
-  <script nomodule crossorigin id="vite-legacy-entry" data-src="./assets/index-legacy-V-TZNfH6.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+  <script nomodule crossorigin id="vite-legacy-entry" data-src="./assets/index-legacy-CZCVD6gZ.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
 </body>
 
 </html>
