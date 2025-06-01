@@ -1,7 +1,7 @@
 {
   "name": "CCEditor",
   "short_name": "CCEditor",
-  "start_url": "/",
+  "start_url": "https://lenml.github.io/CCEditor",
   "id": "CCEditor",
   "icons": [
     {
