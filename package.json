@@ -1,7 +1,7 @@
 {
   "name": "cc-editor",
   "private": true,
-  "version": "1.0.7",
+  "version": "1.0.8",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,7 +15,7 @@
     "@fluentui/react-components": "^9.47.0",
     "@fluentui/react-icons": "^2.0.225",
     "@fluentui/react-tag-picker": "^9.0.0",
-    "@lenml/char-card-reader": "^1.0.6",
+    "@lenml/char-card-reader": "^1.0.7",
     "@lenml/tokenizer-claude": "^3.4.2",
     "@monaco-editor/react": "^4.7.0",
     "@quik-fe/stand": "^1.1.10",
