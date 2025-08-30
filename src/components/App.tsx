@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  type SetStateAction,
-  useRef,
-} from "react";
+import { useState, useEffect, useRef } from "react";
 import { CharacterCard, type SpecV3 } from "@lenml/char-card-reader";
 
 import {
@@ -20,7 +14,6 @@ import {
   DialogBody,
   DialogActions,
   DialogContent,
-  Spinner,
   Text,
   Divider,
   Tooltip,
@@ -31,7 +24,6 @@ import {
   DrawerHeaderTitle,
   DrawerBody,
   type SelectTabData,
-  Input,
 } from "@fluentui/react-components";
 
 import {
@@ -46,7 +38,6 @@ import { useStyles } from "./useStyles";
 import { GITHUB_REPO_LINK } from "./constants";
 import { GithubIcon } from "./icons";
 import { CharacterBookTab } from "./tabs/CharacterBookTab";
-import { useGlobalDrop } from "./useGlobalDrop";
 import { useI18n } from "../tools/i18n";
 import { BasicTab } from "./tabs/BasicTab";
 import { DetailsTab } from "./tabs/DetailsTab";
@@ -56,11 +47,9 @@ import { AvatarPanel } from "./AvatarPanel/AvatarPanel";
 import { LangSwitch } from "./LangSwitch";
 import { createBlackImage } from "../tools/images";
 import { ToolTab } from "./tabs/ToolTab";
-import { useGlobalPaste } from "./useGlobalPaste";
 import { StartPanel } from "./StartPanel/StartPanel";
 import pkgJson from "../../package.json";
 import { cardDB } from "../db/db";
-import { deepClone } from "../common/deepclone";
 import type { CardRecord } from "../db/types";
 
 function getDefaultFormData() {
