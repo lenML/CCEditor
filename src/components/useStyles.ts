@@ -134,6 +134,7 @@ export const useStyles = makeStyles({
     padding: `${tokens.spacingVerticalS} ${tokens.spacingHorizontalM}`,
     ...shorthands.borderRadius(tokens.borderRadiusMedium),
     backgroundColor: tokens.colorNeutralBackground2,
+    userSelect: "none",
     cursor: "pointer",
     ":hover": {
       backgroundColor: tokens.colorNeutralBackground2Hover,

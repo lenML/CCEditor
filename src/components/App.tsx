@@ -43,7 +43,7 @@ import {
   Settings24Regular,
 } from "@fluentui/react-icons";
 import { useStyles } from "./useStyles";
-import { GITHUB_REPO_LINK, HISTORY_KEY, MAX_HISTORY_ITEMS } from "./constants";
+import { GITHUB_REPO_LINK } from "./constants";
 import { GithubIcon } from "./icons";
 import { CharacterBookTab } from "./tabs/CharacterBookTab";
 import { useGlobalDrop } from "./useGlobalDrop";
@@ -59,6 +59,9 @@ import { ToolTab } from "./tabs/ToolTab";
 import { useGlobalPaste } from "./useGlobalPaste";
 import { StartPanel } from "./StartPanel/StartPanel";
 import pkgJson from "../../package.json";
+import { cardDB } from "../db/db";
+import { deepClone } from "../common/deepclone";
+import type { CardRecord } from "../db/types";
 
 function getDefaultFormData() {
   return {
@@ -96,7 +99,7 @@ export function App() {
   const [avatarPreview, setAvatarPreview] = useState<null | string>(null);
   const [originalFile, setOriginalFile] = useState<null | ArrayBuffer>(null);
   const [originalFileName, setOriginalFileName] = useState("");
-  const [history, setHistory] = useState<any[]>([]);
+  const [history, setHistory] = useState<CardRecord[]>([]);
   const [isHistoryDrawerOpen, setIsHistoryDrawerOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState("basic");
   const [isDirty, setIsDirty] = useState(false);
@@ -109,8 +112,10 @@ export function App() {
   });
 
   useEffect(() => {
-    const storedHistory = localStorage.getItem(HISTORY_KEY);
-    if (storedHistory) setHistory(JSON.parse(storedHistory));
+    (async () => {
+      const cards = await cardDB.getAll();
+      setHistory(cards);
+    })();
   }, []);
 
   useEffect(() => {
@@ -226,45 +231,37 @@ export function App() {
     );
   };
 
-  const addToHistory = (
+  const addToHistory = async (
     cardData: SpecV3.CharacterCardV3["data"],
     avatarUrl: string | null,
     spec: string,
     spec_version: string
   ) => {
     if (!cardData || !cardData.name) return;
+    const newCard = CharacterCard.from_json(
+      {
+        data: cardData,
+        spec,
+        spec_version,
+      },
+      avatarUrl ?? undefined
+    );
+    const record = cardDB.create({ card: newCard.toSpecV3(), avatarUrl });
+    try {
+      await cardDB.addRecord(record);
+    } catch (error) {
+      console.error("Error adding record to history:", error);
+      return;
+    }
     setHistory((prevHistory) => {
       const newHistory = prevHistory.filter(
         (item) =>
           !(
-            item.data.name === cardData.name &&
-            item.data.first_mes === cardData.first_mes
+            item.card.data.name === cardData.name &&
+            item.card.data.first_mes === cardData.first_mes
           )
       );
-      const newEntry = {
-        data: JSON.parse(JSON.stringify(cardData)), // Deep copy
-        avatar: avatarUrl,
-        timestamp: new Date().toISOString(),
-        spec: spec || "chara_card_v3", // Store spec info
-        spec_version: spec_version || "3.0",
-      };
-      const updatedHistory = [newEntry, ...newHistory].slice(
-        0,
-        MAX_HISTORY_ITEMS
-      );
-      try {
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
-      } catch (error) {
-        if (error instanceof Error && error.name === "QuotaExceededError") {
-          alert(
-            "Local storage quota exceeded. Some history items may be lost."
-          );
-          return prevHistory;
-        } else {
-          throw error;
-        }
-      }
-      return updatedHistory;
+      return [record, ...newHistory];
     });
   };
 
@@ -276,14 +273,17 @@ export function App() {
   const confirmLoadFromHistory = (index: number) => {
     const item = history[index];
     if (item) {
-      const mockCard = new CharacterCard(item); // For spec/version info
+      const mockCard = new CharacterCard(
+        item.card,
+        item.avatarUrl ?? undefined
+      ); // For spec/version info
       setCharacterCard(mockCard);
 
-      setFormDataFromCardData(item.data);
-      setAvatarPreview(item.avatar || null);
+      setFormDataFromCardData(item.card.data);
+      setAvatarPreview(mockCard.avatar || null);
       setOriginalFile(null);
       setOriginalFileName(
-        `Loaded from history: ${item.data.name || "Unnamed"}`
+        `Loaded from history: ${item.card.data.name || "Unnamed"}`
       );
       setIsDirty(false);
       setSelectedTab("basic"); // Reset to basic tab on load
@@ -292,10 +292,10 @@ export function App() {
     setShowHistoryLoadConfirm({ open: false, index: -1 });
   };
 
-  const handleClearHistory = () => {
+  const handleClearHistory = async () => {
     if (confirm("Are you sure you want to clear all history?")) {
       setHistory([]);
-      localStorage.removeItem(HISTORY_KEY);
+      await cardDB.clear();
     }
   };
 
@@ -407,26 +407,30 @@ export function App() {
         <DrawerBody className={styles.historyDrawerBody}>
           {history.length > 0 ? (
             <>
-              {history.map((item, index) => (
-                <div
-                  key={index}
-                  className={styles.historyItem}
-                  onClick={() => handleLoadFromHistory(index)}
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ")
-                      handleLoadFromHistory(index);
-                  }}
-                >
-                  <Text className={styles.historyItemName}>
-                    {item.data.name || t("Unnamed Card")}
-                  </Text>
-                  <Text className={styles.historyItemDate}>
-                    {new Date(item.timestamp).toLocaleDateString()}
-                  </Text>
-                </div>
-              ))}
-              <Divider style={{ margin: `${tokens.spacingVerticalM} 0` }} />
+              <div style={{ flex: 1 }}>
+                {history.map((item, index) => (
+                  <div
+                    key={index}
+                    className={styles.historyItem}
+                    onClick={() => handleLoadFromHistory(index)}
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ")
+                        handleLoadFromHistory(index);
+                    }}
+                  >
+                    <Text className={styles.historyItemName}>
+                      {item.card.data.name || t("Unnamed Card")}
+                    </Text>
+                    <Text className={styles.historyItemDate}>
+                      {new Date(item.updatedAt).toLocaleDateString()}
+                    </Text>
+                  </div>
+                ))}
+              </div>
+              <Divider
+                style={{ margin: `${tokens.spacingVerticalM} 0`, flex: 0 }}
+              />
               <Button
                 appearance="outline"
                 onClick={handleClearHistory}
