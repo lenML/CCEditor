@@ -1,3 +1,5 @@
+[cn](./README_cn.md) | [en](./README.md)
+
 # CCEditor
 
 An online character card editor for AI character definitions.
