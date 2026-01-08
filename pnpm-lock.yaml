@@ -26,6 +26,9 @@ importers:
       '@lenml/char-card-reader':
         specifier: ^1.1.1
         version: 1.1.1
+      '@lenml/char-card-writer':
+        specifier: ^1.1.0
+        version: 1.1.0
       '@lenml/tokenizer-claude':
         specifier: ^3.4.2
         version: 3.4.2
@@ -1426,6 +1429,9 @@ packages:
   '@lenml/char-card-reader@1.1.1':
     resolution: {integrity: sha512-jKPefzT3d2XRPPVmccvpXDlIoUThvXy5LOJXwoEEmcrAgzA5Iwf0nqsAxpXrKYn2PNCAyw9eClolPUcQSNgSVQ==}
 
+  '@lenml/char-card-writer@1.1.0':
+    resolution: {integrity: sha512-QhSG12rDYScrvR19tb9H6dNQUTLbL977/DcNtIsVwyaQTNj2gAxMSeGW4q8QFjuviiJrZfRxLWETq0c8F6zjyQ==}
+
   '@lenml/tokenizer-claude@3.4.2':
     resolution: {integrity: sha512-dBNg59La8x73zqIUlooUH87+S4g/CBCBs79tE0ROEMf5lmXDrbVPTTplQEwmOfZ49GGyu5yw0YOqT9YHBXLS0w==}
 
@@ -1774,6 +1780,10 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0-beta.0
 
+  '@zip.js/zip.js@2.8.14':
+    resolution: {integrity: sha512-BZ7OyJLA5cjYwf2jVjvZCK10swzIc6sDOLpkPjJXfXgx/IHF5y61PyL3Ko5/q3bUU5GvIhk6tzKDUcDJ7rhzbg==}
+    engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=18.0.0'}
+
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -1878,6 +1888,10 @@ packages:
     resolution: {integrity: sha512-ROmzCKrTnOwybPcJApAA6WBWij23HVfGVNKqqrZpuyZOHqK2CwHSvpGuyt/UNNvaIjEd8X5IFGp4Mh+Ie1IHJQ==}
     engines: {node: '>=0.8'}
     hasBin: true
+
+  cross-image@0.2.4:
+    resolution: {integrity: sha512-RjTBWVU/2gyhy9iJ5E8KM8V/baE5OkO/ZZ2zs5esT5df7Midlpf0apm/zKj6Iq9jOIzHR16OxgqyCmczPLcJuA==}
+    engines: {node: '>=18.0.0'}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -2361,6 +2375,9 @@ packages:
   picomatch@4.0.2:
     resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
     engines: {node: '>=12'}
+
+  piexifjs@1.0.6:
+    resolution: {integrity: sha512-0wVyH0cKohzBQ5Gi2V1BuxYpxWfxF3cSqfFXfPIpl5tl9XLS5z4ogqhUCD20AbHi0h9aJkqXNJnkVev6gwh2ag==}
 
   postcss@8.5.6:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
@@ -4698,6 +4715,13 @@ snapshots:
 
   '@lenml/char-card-reader@1.1.1': {}
 
+  '@lenml/char-card-writer@1.1.0':
+    dependencies:
+      '@zip.js/zip.js': 2.8.14
+      crc-32: 1.2.2
+      cross-image: 0.2.4
+      piexifjs: 1.0.6
+
   '@lenml/tokenizer-claude@3.4.2':
     dependencies:
       '@lenml/tokenizers': 3.4.0
@@ -5038,6 +5062,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@zip.js/zip.js@2.8.14': {}
+
   acorn-jsx@5.3.2(acorn@8.15.0):
     dependencies:
       acorn: 8.15.0
@@ -5140,6 +5166,8 @@ snapshots:
   core-js@3.44.0: {}
 
   crc-32@1.2.2: {}
+
+  cross-image@0.2.4: {}
 
   cross-spawn@7.0.6:
     dependencies:
@@ -5575,6 +5603,8 @@ snapshots:
   picomatch@2.3.1: {}
 
   picomatch@4.0.2: {}
+
+  piexifjs@1.0.6: {}
 
   postcss@8.5.6:
     dependencies:

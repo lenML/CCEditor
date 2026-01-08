@@ -3,6 +3,12 @@ import { version as tool_version } from "../../package.json";
 import { formatDateData } from "./times";
 import { Png } from "./png";
 
+import {
+  JpegBundler,
+  WebpBundler,
+  CharxBundler,
+} from "@lenml/char-card-writer";
+
 function download_blob(blob: Blob, filenmae = "") {
   if (!filenmae && blob instanceof File) {
     filenmae = blob.name;
@@ -64,7 +70,7 @@ export class CardDumper {
     download_blob(file);
   }
 
-  async download_png(version = "v3" as Versions) {
+  private async prepare_image_file(version = "v3" as Versions) {
     const json = this.toJson(version);
     this.addEditorInfo(json);
 
@@ -74,11 +80,53 @@ export class CardDumper {
     }
 
     const blob = await fetch(avatarPreview).then((res) => res.blob());
+
+    return {
+      json,
+      blob,
+    };
+  }
+
+  async download_png(version = "v3" as Versions) {
+    const { json, blob } = await this.prepare_image_file(version);
     const png = Png.Generate(await blob.arrayBuffer(), JSON.stringify(json));
 
     const char_name = this.card.name || "character";
     const filename = `${char_name}.card.${version}.png`;
     const file = new File([png], filename, { type: "image/png" });
     download_blob(file);
+  }
+
+  async download_from_bundler(
+    version = "v3" as Versions,
+    file_ext: string,
+    bundler: JpegBundler | WebpBundler | CharxBundler,
+    mime_type: string = `image/${file_ext}`
+  ) {
+    const { json, blob } = await this.prepare_image_file(version);
+    const jpeg_data = await bundler.bundle(await blob.arrayBuffer(), json);
+
+    const char_name = this.card.name || "character";
+    const filename = `${char_name}.card.${version}.${file_ext}`;
+    const file = new File([jpeg_data], filename, { type: mime_type });
+    download_blob(file);
+  }
+
+  async download_jpeg(version = "v3" as Versions) {
+    const bundler = new JpegBundler();
+    this.download_from_bundler(version, "jpeg", bundler);
+  }
+  async download_webp(version = "v3" as Versions) {
+    const bundler = new WebpBundler();
+    this.download_from_bundler(version, "webp", bundler);
+  }
+  async download_charx(version = "v3" as Versions) {
+    const bundler = new CharxBundler();
+    this.download_from_bundler(
+      version,
+      "charx",
+      bundler,
+      "application/octet-stream"
+    );
   }
 }

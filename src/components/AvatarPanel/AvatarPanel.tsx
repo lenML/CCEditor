@@ -20,6 +20,12 @@ import {
   Field,
   RadioGroup,
   Radio,
+  Menu,
+  MenuTrigger,
+  MenuPopover,
+  MenuList,
+  MenuItem,
+  SplitButton,
 } from "@fluentui/react-components";
 
 import { useStyles } from "../useStyles";
@@ -72,6 +78,77 @@ function useImageInfo(image_url: string | null) {
     };
   }, [image_url]);
   return imageInfo;
+}
+
+function DownloadFileButton({
+  handleSaveProcess,
+  version,
+  disabled = false,
+}: {
+  handleSaveProcess: (cb: (dumper: CardDumper) => any) => any;
+  version: any;
+  disabled?: boolean;
+}) {
+  const styles = useStyles();
+  const t = useI18n();
+
+  const handleSavePngImage = async () =>
+    handleSaveProcess((dumper) => dumper.download_png(version));
+  const handleSaveJpegImage = async () =>
+    handleSaveProcess((dumper) => dumper.download_jpeg(version));
+  const handleSaveWebPImage = async () =>
+    handleSaveProcess((dumper) => dumper.download_webp(version));
+  const handleSaveCharxFile = async () =>
+    handleSaveProcess((dumper) => dumper.download_charx(version));
+
+  const options = [
+    {
+      label: t("Download JPEG"),
+      handler: handleSaveJpegImage,
+    },
+
+    // FIXME: 似乎导出之后无法解析，不知道问题在哪
+    {
+      label: "🚧" + t("Download WebP"),
+      handler: handleSaveWebPImage,
+    },
+
+    {
+      label: "🚧" + t("Download Charx"),
+      handler: handleSaveCharxFile,
+    },
+  ];
+
+  return (
+    <Menu positioning="below-end">
+      <MenuTrigger disableButtonEnhancement>
+        {(triggerProps) => (
+          <SplitButton
+            menuButton={triggerProps}
+            primaryActionButton={{
+              onClick: handleSavePngImage,
+              style: {
+                flex: 1,
+              },
+            }}
+            disabled={disabled}
+          >
+            {t("Download PNG")}
+          </SplitButton>
+        )}
+      </MenuTrigger>
+
+      <MenuPopover>
+        <MenuList>
+          {options.map(({ label, handler }) => (
+            <MenuItem disabled={disabled} onClick={handler}>
+              {label}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </MenuPopover>
+    </Menu>
+  );
 }
 
 export const AvatarPanel = ({
@@ -144,8 +221,6 @@ export const AvatarPanel = ({
   const handleSaveJson = async () =>
     handleSaveProcess((dumper) => dumper.download_json(version));
 
-  const handleSaveImage = async () =>
-    handleSaveProcess((dumper) => dumper.download_png(version));
   const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   const handleClearForm = () => {
@@ -342,13 +417,19 @@ export const AvatarPanel = ({
             marginTop: tokens.spacingVerticalM,
           }}
         >
-          <Button
+          {/* <Button
             appearance="outline"
             onClick={handleSaveImage}
             disabled={!avatarPreview || isProcessingImage}
           >
             {t("Download PNG")}
-          </Button>
+          </Button> */}
+
+          <DownloadFileButton
+            handleSaveProcess={handleSaveProcess}
+            version={version}
+            disabled={!avatarPreview || isProcessingImage}
+          />
           <Button
             appearance="primary"
             onClick={handleSaveJson}
@@ -358,7 +439,7 @@ export const AvatarPanel = ({
           </Button>
         </div>
         <Divider
-          style={{ width: "100%", marginTop: tokens.spacingVerticalM }}
+          style={{ width: "100%", flex: 0, marginTop: tokens.spacingVerticalM }}
         />
         <div
           className={styles.buttonGroup}

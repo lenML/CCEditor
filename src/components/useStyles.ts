@@ -79,6 +79,9 @@ export const useStyles = makeStyles({
       gridTemplateColumns: "1fr",
     },
     overflow: "hidden",
+    height: "100%",
+    maxHeight: "100%",
+    minHeight: "100%",
   },
   avatarPanel: {
     display: "flex",

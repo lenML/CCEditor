@@ -23,14 +23,25 @@ import { useGlobalPaste } from "../useGlobalPaste";
 
 // 对于某些特别的网站链接，转换为源图片非压缩地址
 function getRawImageUrl(url: string) {
-  const obj = new URL(url);
-  if (obj.hostname === "media.discordapp.net") {
+  const urlObj = new URL(url);
+  if (urlObj.hostname === "media.discordapp.net") {
     const compress_keys = ["format", "quality", "width", "height"];
     for (const key of compress_keys) {
-      obj.searchParams.delete(key);
+      urlObj.searchParams.delete(key);
     }
   }
-  return obj.href;
+  if (urlObj.hostname === "chub.ai") {
+    // 如果是chub card页面，转为card png
+    // From: https://chub.ai/characters/${uid}/${cid}
+    // To: https://avatars.charhub.io/avatars/${uid}/${cid}/chara_card_v2.png
+    const pattern = /\/characters\/(\w+)\/([\w_\-]+)/i;
+    const [, uid, cid] = pattern.exec(urlObj.pathname) || [];
+    if (uid && cid) {
+      const url = `https://avatars.charhub.io/avatars/${uid}/${cid}/chara_card_v2.png`;
+      return url;
+    }
+  }
+  return urlObj.href;
 }
 
 // 开始菜单
