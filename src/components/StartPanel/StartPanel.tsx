@@ -20,6 +20,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useGlobalDrop } from "../useGlobalDrop";
 import { CharacterCard } from "@lenml/char-card-reader";
 import { useGlobalPaste } from "../useGlobalPaste";
+import { createBlackImage } from "../../tools/images";
 
 // 对于某些特别的网站链接，转换为源图片非压缩地址
 function getRawImageUrl(url: string) {
@@ -125,7 +126,28 @@ export const StartPanel = ({
     setOriginalFileName(file.name);
     async function readCardFile() {
       if (file.type === "application/json") {
-        return CharacterCard.from_json(JSON.parse(await file.text()));
+        const json = JSON.parse(await file.text());
+        if (json.entries) {
+          if (!Array.isArray(json.entries) && typeof json.entries === "object") {
+            json.entries = Object.values(json.entries);
+          }
+          const tempAvatar = createBlackImage(file.name);
+          const avatar_url = tempAvatar.toDataURL();
+          return CharacterCard.from_json(
+            {
+              spec: "chara_card_v2",
+              spec_version: "3.0",
+              data: {
+                name: file.name.replace(/\.json$/i, ""),
+                description: "Auto-generated card for lorebook",
+                first_mes: "",
+                character_book: json,
+              },
+            },
+            avatar_url
+          );
+        }
+        return CharacterCard.from_json(json);
       }
       const arrayBuffer = await file.arrayBuffer();
       setOriginalFile(arrayBuffer);

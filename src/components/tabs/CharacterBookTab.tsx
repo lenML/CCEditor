@@ -77,6 +77,19 @@ export const CharacterBookTab: FC<{
     );
   }, [bookData]);
 
+  const handleExportJson = () => {
+    const jsonStr = JSON.stringify(bookData, null, 2);
+    const blob = new Blob([jsonStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = (bookData.name || "lorebook") + ".json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div>
       <Field
@@ -106,9 +119,12 @@ export const CharacterBookTab: FC<{
           onDeleteEntry={handleDeleteEntry}
         />
       ))}
-      <div className={styles.bookActions}>
+      <div className={styles.bookActions} style={{ display: "flex", gap: "8px" }}>
         <Button icon={<Add24Regular />} onClick={handleAddEntry}>
-          Add Entry
+          {t("Add Entry")}
+        </Button>
+        <Button onClick={handleExportJson}>
+          {t("Export JSON")}
         </Button>
       </div>
     </div>
