@@ -166,6 +166,7 @@ export const BookEntryEditor: FC<{
           </Field>
           <Field label={t("Content")} className={styles.bookEntryFullWidth}>
             <FullscreenEditor
+              placeholder={t("no text here.")}
               window_title={t("Content")}
               resize="vertical"
               value={entry.content || ""}
@@ -247,6 +248,7 @@ export const BookEntryEditor: FC<{
             className={styles.bookEntryFullWidth}
           >
             <FullscreenEditor
+              placeholder={t("no text here.")}
               editor_language="json"
               resize="vertical"
               className={styles.readOnlyTextarea} // Re-use for similar look

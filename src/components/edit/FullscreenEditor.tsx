@@ -35,6 +35,7 @@ export function FullscreenEditor(
     onChange,
     window_title = "Editor",
     editor_language = "markdown",
+    placeholder = "no text here.",
     ...rest
   } = props;
 
@@ -108,7 +109,7 @@ export function FullscreenEditor(
           title={t("Fullscreen Edit")}
         />
         <Textarea
-          placeholder="no text here."
+          placeholder={placeholder}
           {...rest}
           value={currentValue}
           onChange={handleChange}

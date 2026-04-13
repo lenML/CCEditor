@@ -16,6 +16,14 @@ export const DetailsTab = ({
   const styles = useStyles();
   const t = useI18n();
 
+  const editor_props = {
+    placeholder: t("no text here."),
+  };
+  const array_props = {
+    inputPlaceholder: t("Enter text..."),
+    addButtonLabel: t("Add Item"),
+  };
+
   const detailsFields = useMemo(
     () => [
       {
@@ -25,6 +33,7 @@ export const DetailsTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 4,
+        props: editor_props,
       },
       {
         name: "scenario",
@@ -33,6 +42,7 @@ export const DetailsTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 4,
+        props: editor_props,
       },
       {
         name: "first_mes",
@@ -41,6 +51,7 @@ export const DetailsTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 3,
+        props: editor_props,
       },
       {
         name: "mes_example",
@@ -49,6 +60,7 @@ export const DetailsTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 3,
+        props: editor_props,
       },
       {
         name: "alternate_greetings",
@@ -57,6 +69,7 @@ export const DetailsTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 3,
+        props: array_props,
       },
       {
         name: "group_only_greetings",
@@ -65,6 +78,7 @@ export const DetailsTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 3,
+        props: array_props,
       },
       {
         name: "system_prompt",
@@ -73,6 +87,7 @@ export const DetailsTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 3,
+        props: editor_props,
       },
       {
         name: "post_history_instructions",
@@ -81,6 +96,7 @@ export const DetailsTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 3,
+        props: editor_props,
       },
       {
         name: "creator_notes",
@@ -89,6 +105,7 @@ export const DetailsTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 3,
+        props: editor_props,
       },
     ],
     [t]
@@ -114,6 +131,7 @@ export const DetailsTab = ({
             rows={fc.rows}
             resize={fc.resize as any}
             window_title={fc.label}
+            {...fc.props}
           />
         </Field>
       ))}

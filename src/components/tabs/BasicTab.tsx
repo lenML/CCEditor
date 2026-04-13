@@ -64,6 +64,9 @@ export const BasicTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 4,
+        props: {
+          placeholder: t("no text here."),
+        },
       },
     ],
     [t]
@@ -89,6 +92,7 @@ export const BasicTab = ({
             rows={fc.rows}
             resize={fc.resize as any}
             window_title={fc.label}
+            {...fc.props}
           />
         </Field>
       ))}

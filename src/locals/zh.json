@@ -205,5 +205,8 @@
   "Delete characterbook": "删除角色书",
   "Delete Character Book": "删除角色书",
   "Are you sure you want to delete all characterbook entries? This action cannot be undone.": "确定要删除所有角色书条目吗？此操作无法撤销。",
-  "Delete": "删除"
+  "Delete": "删除",
+  "no text here.": "这里没有文本。",
+  "Enter text...": "输入文本...",
+  "Add Item": "添加项目"
 }

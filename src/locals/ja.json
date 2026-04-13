@@ -205,5 +205,8 @@
   "Delete characterbook": "キャラクターブックを削除",
   "Delete Character Book": "キャラクターブックを削除",
   "Are you sure you want to delete all characterbook entries? This action cannot be undone.": "すべてのキャラクターブックのエントリを削除してもよろしいですか？この操作は元に戻せません。",
-  "Delete": "削除"
+  "Delete": "削除",
+  "no text here.": "テキストがありません。",
+  "Enter text...": "テキストを入力...",
+  "Add Item": "項目を追加"
 }

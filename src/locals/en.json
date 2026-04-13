@@ -193,5 +193,8 @@
   "Delete characterbook": "Delete characterbook",
   "Delete Character Book": "Delete Character Book",
   "Are you sure you want to delete all characterbook entries? This action cannot be undone.": "Are you sure you want to delete all characterbook entries? This action cannot be undone.",
-  "Delete": "Delete"
+  "Delete": "Delete",
+  "no text here.": "no text here.",
+  "Enter text...": "Enter text...",
+  "Add Item": "Add Item"
 }

@@ -95,6 +95,10 @@ export const AdvancedTab = ({
   const styles = useStyles();
   const t = useI18n();
 
+  const editor_props = {
+    placeholder: t("no text here."),
+  };
+
   const advancedFields = useMemo(
     () => [
       {
@@ -104,6 +108,7 @@ export const AdvancedTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 4,
+        props: editor_props,
       },
       {
         name: "extensions",
@@ -112,6 +117,7 @@ export const AdvancedTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 4,
+        props: editor_props,
       },
       {
         name: "creator_notes_multilingual",
@@ -120,6 +126,7 @@ export const AdvancedTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 4,
+        props: editor_props,
       },
     ],
     [styles.readOnlyTextarea, t]
@@ -146,6 +153,7 @@ export const AdvancedTab = ({
             resize={fc.resize as any}
             name={fc.name}
             label={fc.label}
+            {...fc.props}
           />
         </Field>
       ))}
