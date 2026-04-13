@@ -200,5 +200,10 @@
   "Share": "分享",
   "Share Link": "分享链接",
   "You can share the link to edit this card, your friend can click it to reach this tool's edit page": "您可以分享编辑此卡的链接，您的朋友可以点击它到达此工具的编辑页面",
-  "Ok": "好的"
+  "Ok": "好的",
+  "Add Entry": "添加条目",
+  "Delete characterbook": "删除角色书",
+  "Delete Character Book": "删除角色书",
+  "Are you sure you want to delete all characterbook entries? This action cannot be undone.": "确定要删除所有角色书条目吗？此操作无法撤销。",
+  "Delete": "删除"
 }

@@ -188,5 +188,10 @@
   "Share": "Share",
   "Share Link": "Share Link",
   "You can share the link to edit this card, your friend can click it to reach this tool's edit page": "You can share the link to edit this card, your friend can click it to reach this tool's edit page",
-  "Ok": "Ok"
+
+  "Add Entry": "Add Entry",
+  "Delete characterbook": "Delete characterbook",
+  "Delete Character Book": "Delete Character Book",
+  "Are you sure you want to delete all characterbook entries? This action cannot be undone.": "Are you sure you want to delete all characterbook entries? This action cannot be undone.",
+  "Delete": "Delete"
 }
