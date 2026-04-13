@@ -15,6 +15,7 @@ import {
 import { nanoid } from "nanoid";
 import React, { useState, useEffect, useCallback } from "react";
 import { FullscreenEditor } from "../../edit/FullscreenEditor";
+import { requestConfirm } from "../../misc/requestConfirm";
 
 // Styles for the TextArrayEditor
 const useTextArrayEditorStyles = makeStyles({
@@ -59,8 +60,10 @@ export interface TextArrayEditorProps {
   value: string[];
   onChange: (ev: any, d: { value: string[] }) => void;
   label?: string; // Optional label for the whole editor
+
   inputPlaceholder?: string;
   addButtonLabel?: string;
+  deleteConfirmText?: string;
 }
 
 export const TextArrayEditor: React.FC<TextArrayEditorProps> = ({
@@ -68,6 +71,7 @@ export const TextArrayEditor: React.FC<TextArrayEditorProps> = ({
   onChange,
   inputPlaceholder = "Enter text...",
   addButtonLabel = "Add Item",
+  deleteConfirmText = "Are you sure you want to delete this item?",
 }) => {
   const styles = useTextArrayEditorStyles();
   const [items, setItems] = useState<TextArrayItem[]>([]);
@@ -93,7 +97,12 @@ export const TextArrayEditor: React.FC<TextArrayEditorProps> = ({
     onChange({}, { value: newItems.map((item) => item.value) });
   };
 
-  const handleDeleteItem = (id: string) => {
+  const handleDeleteItem = async (id: string) => {
+    const confirm = await requestConfirm({
+      content: deleteConfirmText,
+    });
+    if (!confirm) return;
+
     const newItems = items.filter((item) => item.id !== id);
     setItems(newItems);
     onChange({}, { value: newItems.map((item) => item.value) });

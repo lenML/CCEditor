@@ -208,5 +208,9 @@
   "Delete": "削除",
   "no text here.": "テキストがありません。",
   "Enter text...": "テキストを入力...",
-  "Add Item": "項目を追加"
+  "Add Item": "項目を追加",
+  "Confirm": "確認",
+  "Are you sure you want to delete this greeting?": "この挨拶を削除してもよろしいですか？",
+  "Are you sure you want to delete this greeting(group only)?": "この挨拶（グループのみ）を削除してもよろしいですか？",
+  "confirmClearForm": "データをクリアしてもよろしいですか？この操作では保存されていない編集内容が失われる可能性があります。先にキャラクターカードをエクスポートして、データが失われないようにしてください。"
 }

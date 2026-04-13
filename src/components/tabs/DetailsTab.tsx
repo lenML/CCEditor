@@ -69,7 +69,12 @@ export const DetailsTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 3,
-        props: array_props,
+        props: {
+          ...array_props,
+          deleteConfirmText: t(
+            "Are you sure you want to delete this greeting?"
+          ),
+        },
       },
       {
         name: "group_only_greetings",
@@ -78,7 +83,12 @@ export const DetailsTab = ({
         fullWidth: true,
         resize: "vertical",
         rows: 3,
-        props: array_props,
+        props: {
+          ...array_props,
+          deleteConfirmText: t(
+            "Are you sure you want to delete this greeting(group only)?"
+          ),
+        },
       },
       {
         name: "system_prompt",

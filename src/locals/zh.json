@@ -208,5 +208,9 @@
   "Delete": "删除",
   "no text here.": "这里没有文本。",
   "Enter text...": "输入文本...",
-  "Add Item": "添加项目"
+  "Add Item": "添加项目",
+  "Confirm": "确认",
+  "Are you sure you want to delete this greeting?": "您确定要删除此问候语吗？",
+  "Are you sure you want to delete this greeting(group only)?": "您确定要删除此问候语（仅限群组）吗？",
+  "confirmClearForm": "确定清空数据吗，此操作可能丢失未保存的编辑。你可以先导出角色卡确保数据不丢失。"
 }

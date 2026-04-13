@@ -196,5 +196,9 @@
   "Delete": "Delete",
   "no text here.": "no text here.",
   "Enter text...": "Enter text...",
-  "Add Item": "Add Item"
+  "Add Item": "Add Item",
+  "Confirm": "Confirm",
+  "Are you sure you want to delete this greeting?": "Are you sure you want to delete this greeting?",
+  "Are you sure you want to delete this greeting(group only)?": "Are you sure you want to delete this greeting(group only)?",
+  "confirmClearForm": "Are you sure you want to clear the form data? This operation may lose unsaved edits. You can export the character card first to ensure data is not lost."
 }

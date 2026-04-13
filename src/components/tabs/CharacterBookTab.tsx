@@ -7,13 +7,6 @@ import {
   Input,
   Field,
   Divider,
-  Dialog,
-  DialogTrigger,
-  DialogSurface,
-  DialogBody,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
 } from "@fluentui/react-components";
 import { BookEntryEditor } from "./BookEntryEditor";
 import { Add24Regular, Delete24Regular } from "@fluentui/react-icons";
@@ -21,6 +14,7 @@ import { useI18n } from "../../tools/i18n";
 import type { SpecV3 } from "@lenml/char-card-reader";
 import { keysFix } from "../../tools/fixs";
 import { CardFieldLabel } from "../HelpTips/CardFieldLabel";
+import { requestConfirm } from "../misc/requestConfirm";
 
 export const CharacterBookTab: FC<{
   bookData: SpecV3.Lorebook;
@@ -59,11 +53,11 @@ export const CharacterBookTab: FC<{
     });
   };
 
-  const handleDeleteEntry = (index: any) => {
+  const handleDeleteEntry = async (index: any) => {
     if (!bookData) return;
-    const isConfirm = window.confirm(
-      t("Are you sure you want to delete this entry?")
-    );
+    const isConfirm = await requestConfirm({
+      content: t("Are you sure you want to delete this entry?"),
+    });
     if (!isConfirm) return;
 
     const newEntries = (bookData.entries || []).filter(
@@ -85,6 +79,17 @@ export const CharacterBookTab: FC<{
       )
     );
   }, [bookData]);
+
+  const handlerCleanLorebook = async () => {
+    const confirm = await requestConfirm({
+      title: t("Delete Character Book"),
+      content: t(
+        "Are you sure you want to delete all characterbook entries? This action cannot be undone."
+      ),
+    });
+    if (!confirm) return;
+    onBookChange({ name: "", entries: [], extensions: {} });
+  };
 
   return (
     <div>
@@ -119,38 +124,13 @@ export const CharacterBookTab: FC<{
         <Button icon={<Add24Regular />} onClick={handleAddEntry}>
           {t("Add Entry")}
         </Button>
-        <Dialog>
-          <DialogTrigger disableButtonEnhancement>
-            <Button icon={<Delete24Regular />} appearance="subtle">
-              {t("Delete characterbook")}
-            </Button>
-          </DialogTrigger>
-          <DialogSurface>
-            <DialogBody>
-              <DialogTitle>{t("Delete Character Book")}</DialogTitle>
-              <DialogContent>
-                {t(
-                  "Are you sure you want to delete all characterbook entries? This action cannot be undone."
-                )}
-              </DialogContent>
-              <DialogActions>
-                <DialogTrigger disableButtonEnhancement>
-                  <Button appearance="secondary">{t("Cancel")}</Button>
-                </DialogTrigger>
-                <DialogTrigger disableButtonEnhancement>
-                  <Button
-                    appearance="primary"
-                    onClick={() =>
-                      onBookChange({ name: "", entries: [], extensions: {} })
-                    }
-                  >
-                    {t("Delete")}
-                  </Button>
-                </DialogTrigger>
-              </DialogActions>
-            </DialogBody>
-          </DialogSurface>
-        </Dialog>
+        <Button
+          icon={<Delete24Regular />}
+          appearance="subtle"
+          onClick={handlerCleanLorebook}
+        >
+          {t("Delete characterbook")}
+        </Button>
       </div>
     </div>
   );

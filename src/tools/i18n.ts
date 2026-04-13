@@ -58,8 +58,8 @@ export const useI18nStore = create<{
 const missing_json = {} as any;
 
 export const translate = (
-  lang: string,
   key: string,
+  lang: string = useI18nStore.get().currentLang,
   vars?: Record<string, any>
 ): string => {
   const soft_local = getSoftLocal(lang);
@@ -85,7 +85,7 @@ export const useI18n = () => {
   const { currentLang } = useI18nStore();
   return React.useCallback(
     (key: string, vars?: Record<string, any>) =>
-      translate(currentLang, key, vars),
+      translate(key, currentLang, vars),
     [currentLang]
   );
 };

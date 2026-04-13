@@ -208,5 +208,9 @@
   "Delete": "삭제",
   "no text here.": "텍스트가 없습니다.",
   "Enter text...": "텍스트 입력...",
-  "Add Item": "항목 추가"
+  "Add Item": "항목 추가",
+  "Confirm": "확인",
+  "Are you sure you want to delete this greeting?": "이 인사말을 삭제하시겠습니까?",
+  "Are you sure you want to delete this greeting(group only)?": "이 인사말(그룹 전용)을 삭제하시겠습니까?",
+  "confirmClearForm": "데이터를 지우시겠습니까? 이 작업은 저장되지 않은 편집 내용이 손실될 수 있습니다. 먼저 캐릭터 카드를 내보내 데이터가 손실되지 않도록 할 수 있습니다."
 }

@@ -34,6 +34,7 @@ import { CardDumper } from "../../tools/CardDumper";
 // import { sanitizeFilename } from "../common"; // Not used in this snippet
 
 import { filesize } from "filesize";
+import { requestConfirm } from "../misc/requestConfirm";
 
 const versions = ["v1", "v2", "v3", "max"] as const;
 type TVersion = (typeof versions)[number];
@@ -227,7 +228,12 @@ export const AvatarPanel = ({
     if (isDirty) setShowClearConfirm(true);
     else confirmClearForm();
   };
-  const confirmClearForm = () => {
+  const confirmClearForm = async () => {
+    const confirm = await requestConfirm({
+      content: t("confirmClearForm"),
+    });
+    if (!confirm) return;
+
     resetEditorState();
     setShowClearConfirm(false);
   };
