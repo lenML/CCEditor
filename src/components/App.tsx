@@ -521,7 +521,10 @@ export function App() {
                   case "book": {
                     return (
                       <CharacterBookTab
-                        bookData={formData.character_book}
+                        bookData={
+                          formData.character_book ??
+                          getDefaultFormData().character_book!
+                        }
                         onBookChange={handleBookDataChange}
                       />
                     );

@@ -23,25 +23,22 @@ import { keysFix } from "../../tools/fixs";
 import { CardFieldLabel } from "../HelpTips/CardFieldLabel";
 
 export const CharacterBookTab: FC<{
-  bookData: SpecV3.Lorebook | undefined;
-  onBookChange: (bookData: SpecV3.Lorebook | undefined) => void;
+  bookData: SpecV3.Lorebook;
+  onBookChange: (bookData: SpecV3.Lorebook) => void;
 }> = ({ bookData, onBookChange }) => {
   const styles = useStyles();
 
   const handleBookNameChange = (newName: any) => {
-    if (!bookData) return;
     onBookChange({ ...bookData, name: newName });
   };
 
   const handleUpdateEntry = (index: number, updatedEntry: any) => {
-    if (!bookData) return;
     const newEntries = [...(bookData.entries || [])];
     newEntries[index] = updatedEntry;
     onBookChange({ ...bookData, entries: newEntries });
   };
 
   const handleAddEntry = () => {
-    if (!bookData) return;
     const newEntry: SpecV3.Lorebook["entries"][number] = {
       keys: [],
       secondary_keys: [],
@@ -132,7 +129,9 @@ export const CharacterBookTab: FC<{
             <DialogBody>
               <DialogTitle>{t("Delete Character Book")}</DialogTitle>
               <DialogContent>
-                {t("Are you sure you want to delete all characterbook entries? This action cannot be undone.")}
+                {t(
+                  "Are you sure you want to delete all characterbook entries? This action cannot be undone."
+                )}
               </DialogContent>
               <DialogActions>
                 <DialogTrigger disableButtonEnhancement>
@@ -141,7 +140,9 @@ export const CharacterBookTab: FC<{
                 <DialogTrigger disableButtonEnhancement>
                   <Button
                     appearance="primary"
-                    onClick={() => onBookChange(undefined)}
+                    onClick={() =>
+                      onBookChange({ name: "", entries: [], extensions: {} })
+                    }
                   >
                     {t("Delete")}
                   </Button>
