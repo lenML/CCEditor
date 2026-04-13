@@ -125,14 +125,14 @@ export const CharacterBookTab: FC<{
         <Dialog>
           <DialogTrigger disableButtonEnhancement>
             <Button icon={<Delete24Regular />} appearance="subtle">
-              {t("Delete characterbook")}
+              {t("Clear Character Book")}
             </Button>
           </DialogTrigger>
           <DialogSurface>
             <DialogBody>
-              <DialogTitle>{t("Delete Character Book")}</DialogTitle>
+              <DialogTitle>{t("Clear Character Book")}</DialogTitle>
               <DialogContent>
-                {t("Are you sure you want to delete all characterbook entries? This action cannot be undone.")}
+                {t("Are you sure you want to clear the character book? This will reset it to an empty state.")}
               </DialogContent>
               <DialogActions>
                 <DialogTrigger disableButtonEnhancement>
@@ -141,9 +141,9 @@ export const CharacterBookTab: FC<{
                 <DialogTrigger disableButtonEnhancement>
                   <Button
                     appearance="primary"
-                    onClick={() => onBookChange(undefined)}
+                    onClick={() => onBookChange({ name: "", entries: [], extensions: {} })}
                   >
-                    {t("Delete")}
+                    {t("Clear")}
                   </Button>
                 </DialogTrigger>
               </DialogActions>
