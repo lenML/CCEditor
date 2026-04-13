@@ -7,31 +7,41 @@ import {
   Input,
   Field,
   Divider,
+  Dialog,
+  DialogTrigger,
+  DialogSurface,
+  DialogBody,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@fluentui/react-components";
 import { BookEntryEditor } from "./BookEntryEditor";
-import { Add24Regular } from "@fluentui/react-icons";
+import { Add24Regular, Delete24Regular } from "@fluentui/react-icons";
 import { useI18n } from "../../tools/i18n";
 import type { SpecV3 } from "@lenml/char-card-reader";
 import { keysFix } from "../../tools/fixs";
 import { CardFieldLabel } from "../HelpTips/CardFieldLabel";
 
 export const CharacterBookTab: FC<{
-  bookData: SpecV3.Lorebook;
-  onBookChange: (bookData: SpecV3.Lorebook) => void;
+  bookData: SpecV3.Lorebook | undefined;
+  onBookChange: (bookData: SpecV3.Lorebook | undefined) => void;
 }> = ({ bookData, onBookChange }) => {
   const styles = useStyles();
 
   const handleBookNameChange = (newName: any) => {
+    if (!bookData) return;
     onBookChange({ ...bookData, name: newName });
   };
 
   const handleUpdateEntry = (index: number, updatedEntry: any) => {
+    if (!bookData) return;
     const newEntries = [...(bookData.entries || [])];
     newEntries[index] = updatedEntry;
     onBookChange({ ...bookData, entries: newEntries });
   };
 
   const handleAddEntry = () => {
+    if (!bookData) return;
     const newEntry: SpecV3.Lorebook["entries"][number] = {
       keys: [],
       secondary_keys: [],
@@ -53,6 +63,7 @@ export const CharacterBookTab: FC<{
   };
 
   const handleDeleteEntry = (index: any) => {
+    if (!bookData) return;
     const isConfirm = window.confirm(
       t("Are you sure you want to delete this entry?")
     );
@@ -67,6 +78,7 @@ export const CharacterBookTab: FC<{
   const t = useI18n();
 
   const total_keys = useMemo(() => {
+    if (!bookData?.entries) return [];
     return Array.from(
       new Set(
         bookData.entries.flatMap((x) => [
@@ -108,8 +120,36 @@ export const CharacterBookTab: FC<{
       ))}
       <div className={styles.bookActions}>
         <Button icon={<Add24Regular />} onClick={handleAddEntry}>
-          Add Entry
+          {t("Add Entry")}
         </Button>
+        <Dialog>
+          <DialogTrigger disableButtonEnhancement>
+            <Button icon={<Delete24Regular />} appearance="subtle">
+              {t("Delete characterbook")}
+            </Button>
+          </DialogTrigger>
+          <DialogSurface>
+            <DialogBody>
+              <DialogTitle>{t("Delete Character Book")}</DialogTitle>
+              <DialogContent>
+                {t("Are you sure you want to delete all characterbook entries? This action cannot be undone.")}
+              </DialogContent>
+              <DialogActions>
+                <DialogTrigger disableButtonEnhancement>
+                  <Button appearance="secondary">{t("Cancel")}</Button>
+                </DialogTrigger>
+                <DialogTrigger disableButtonEnhancement>
+                  <Button
+                    appearance="primary"
+                    onClick={() => onBookChange(undefined)}
+                  >
+                    {t("Delete")}
+                  </Button>
+                </DialogTrigger>
+              </DialogActions>
+            </DialogBody>
+          </DialogSurface>
+        </Dialog>
       </div>
     </div>
   );

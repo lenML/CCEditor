@@ -32,16 +32,29 @@ export class CardDumper {
   }
 
   toJson(version = "v3" as Versions) {
+    let json: any;
     switch (version) {
       case "v1":
-        return this.card.toSpecV1();
+        json = this.card.toSpecV1();
+        break;
       case "v2":
-        return this.card.toSpecV2();
+        json = this.card.toSpecV2();
+        break;
       case "v3":
-        return this.card.toSpecV3();
+        json = this.card.toSpecV3();
+        break;
       default:
-        return this.card.toMaxCompatibleSpec();
+        json = this.card.toMaxCompatibleSpec();
     }
+
+    if (json.data?.character_book) {
+      const cb = json.data.character_book;
+      if (!cb.name && (!cb.entries || cb.entries.length === 0)) {
+        delete json.data.character_book;
+      }
+    }
+
+    return json;
   }
 
   addEditorInfo(obj: any) {

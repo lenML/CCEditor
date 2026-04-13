@@ -176,7 +176,14 @@ export function App() {
   };
 
   const handleBookDataChange = (newBookData: any) => {
-    setFormData((prev: any) => ({ ...prev, character_book: newBookData }));
+    if (newBookData === undefined) {
+      setFormData((prev: any) => {
+        const { character_book, ...rest } = prev;
+        return { ...rest };
+      });
+    } else {
+      setFormData((prev: any) => ({ ...prev, character_book: newBookData }));
+    }
     setIsDirty(true);
   };
 
@@ -514,13 +521,7 @@ export function App() {
                   case "book": {
                     return (
                       <CharacterBookTab
-                        bookData={
-                          formData.character_book || {
-                            name: "",
-                            entries: [],
-                            extensions: {},
-                          }
-                        }
+                        bookData={formData.character_book}
                         onBookChange={handleBookDataChange}
                       />
                     );
