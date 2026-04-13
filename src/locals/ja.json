@@ -212,5 +212,6 @@
   "Confirm": "確認",
   "Are you sure you want to delete this greeting?": "この挨拶を削除してもよろしいですか？",
   "Are you sure you want to delete this greeting(group only)?": "この挨拶（グループのみ）を削除してもよろしいですか？",
-  "confirmClearForm": "データをクリアしてもよろしいですか？この操作では保存されていない編集内容が失われる可能性があります。先にキャラクターカードをエクスポートして、データが失われないようにしてください。"
+  "confirmClearForm": "データをクリアしてもよろしいですか？この操作では保存されていない編集内容が失われる可能性があります。先にキャラクターカードをエクスポートして、データが失われないようにしてください。",
+  "Input or select tags": "タグを入力または選択"
 }

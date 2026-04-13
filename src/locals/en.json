@@ -200,5 +200,7 @@
   "Confirm": "Confirm",
   "Are you sure you want to delete this greeting?": "Are you sure you want to delete this greeting?",
   "Are you sure you want to delete this greeting(group only)?": "Are you sure you want to delete this greeting(group only)?",
-  "confirmClearForm": "Are you sure you want to clear the form data? This operation may lose unsaved edits. You can export the character card first to ensure data is not lost."
+  "confirmClearForm": "Are you sure you want to clear the form data? This operation may lose unsaved edits. You can export the character card first to ensure data is not lost.",
+  "No history yet.": "No history yet.",
+  "Input or select tags": "Input or select tags"
 }
