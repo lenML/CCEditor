@@ -23,6 +23,9 @@ importers:
       '@fluentui/react-tag-picker':
         specifier: ^9.0.0
         version: 9.6.6(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2)
+      '@huse/boolean':
+        specifier: ^1.2.0
+        version: 1.2.0(react@18.3.1)
       '@lenml/char-card-reader':
         specifier: ^1.1.1
         version: 1.1.1
@@ -1397,6 +1400,16 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
+  '@huse/boolean@1.2.0':
+    resolution: {integrity: sha512-ZsC+RfXyrg9bhdY9+B+4RJh9fwXCUL7Cwh0lvxintCnqgjCb1mT0j7Pjcrg1jwzoeRrRWsHPcm1oW/8Gc8+aFw==}
+    peerDependencies:
+      react: '>=16.8.0'
+
+  '@huse/methods@1.2.2':
+    resolution: {integrity: sha512-8b8cw0uabwNiQny4ebTIsE7mu8JnPOJZqCeEeW15MZaU3d3GdODrb+nB+45fi0BFzr7asc0wVpgR5/jNu1vmfg==}
+    peerDependencies:
+      react: '>=16.8.0'
+
   '@isaacs/fs-minipass@4.0.1':
     resolution: {integrity: sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w==}
     engines: {node: '>=18.0.0'}
@@ -2113,6 +2126,9 @@ packages:
     resolution: {integrity: sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg==}
     engines: {node: '>= 4'}
 
+  immer@9.0.21:
+    resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
+
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
     engines: {node: '>=6'}
@@ -2616,6 +2632,12 @@ packages:
       '@types/react-dom': '>=16.8.0 <19.0.0'
       react: '>=16.8.0 <19.0.0'
       react-dom: '>=16.8.0 <19.0.0'
+
+  use-immer@0.6.0:
+    resolution: {integrity: sha512-dFGRfvWCqPDTOt/S431ETYTg6+uxbpb7A1pptufwXVzGJY3RlXr38+3wyLNpc6SbbmAKjWl6+EP6uW74fkEsXQ==}
+    peerDependencies:
+      immer: '>=2.0.0'
+      react: ^16.8.0 || ^17.0.1
 
   use-sync-external-store@1.5.0:
     resolution: {integrity: sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==}
@@ -4678,6 +4700,17 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
+  '@huse/boolean@1.2.0(react@18.3.1)':
+    dependencies:
+      '@huse/methods': 1.2.2(react@18.3.1)
+      react: 18.3.1
+
+  '@huse/methods@1.2.2(react@18.3.1)':
+    dependencies:
+      immer: 9.0.21
+      react: 18.3.1
+      use-immer: 0.6.0(immer@9.0.21)(react@18.3.1)
+
   '@isaacs/fs-minipass@4.0.1':
     dependencies:
       minipass: 7.1.2
@@ -5409,6 +5442,8 @@ snapshots:
 
   ignore@7.0.5: {}
 
+  immer@9.0.21: {}
+
   import-fresh@3.3.1:
     dependencies:
       parent-module: 1.0.1
@@ -5850,6 +5885,11 @@ snapshots:
       '@types/react-dom': 18.3.7(@types/react@18.3.23)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+
+  use-immer@0.6.0(immer@9.0.21)(react@18.3.1):
+    dependencies:
+      immer: 9.0.21
+      react: 18.3.1
 
   use-sync-external-store@1.5.0(react@18.3.1):
     dependencies:

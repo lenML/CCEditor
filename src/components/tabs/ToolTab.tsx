@@ -9,10 +9,17 @@ import {
   Field,
   makeStyles,
   tokens,
+  Divider,
 } from "@fluentui/react-components";
 import { useI18n } from "../../tools/i18n";
+import { tools } from "../tools/tools";
+import { useBoolean } from "@huse/boolean";
+import type { CCTool } from "../tools/CCTool";
 
-const tavern = new TinyTavern();
+import {
+  ArrowMaximizeVerticalRegular,
+  ArrowMinimizeVerticalRegular,
+} from "@fluentui/react-icons";
 
 const useStyles = makeStyles({
   col: {
@@ -20,7 +27,48 @@ const useStyles = makeStyles({
     flexDirection: "column",
     gap: tokens.spacingHorizontalL,
   },
+  fieldset: {
+    flexDirection: "column",
+    borderRadius: tokens.borderRadiusMedium,
+    padding: tokens.spacingVerticalS,
+    border: `1px solid ${tokens.colorNeutralStroke1}`,
+  },
 });
+
+function ToolCard({ card, tool }: { card: CharacterCard; tool: CCTool }) {
+  const { name, desc, component: Comp } = tool;
+  const styles = useStyles();
+  const t = useI18n();
+  const [is_expand, expand] = useBoolean();
+  return (
+    <fieldset className={styles.fieldset}>
+      <legend>
+        <Button
+          onClick={expand.toggle}
+          appearance="subtle"
+          icon={
+            is_expand ? (
+              <ArrowMinimizeVerticalRegular />
+            ) : (
+              <ArrowMaximizeVerticalRegular />
+            )
+          }
+        >
+          {/* {is_expand ? t("collapse") : t("expand")} */}
+        </Button>
+        {t(name)}
+      </legend>
+      <span>{desc}</span>{" "}
+      {is_expand ? (
+        <>
+          {" "}
+          <Divider style={{ margin: tokens.spacingVerticalS }} />{" "}
+          <Comp card={card} />{" "}
+        </>
+      ) : null}
+    </fieldset>
+  );
+}
 
 export const ToolTab = ({
   getCard,
@@ -28,52 +76,16 @@ export const ToolTab = ({
   getCard: () => CharacterCard | undefined;
 }) => {
   const card = useMemo(getCard, [getCard]);
-  const [user, setUser] = useState("User");
-  const [assistant, setAssistant] = useState(card?.name ?? "Assistant");
-  const [result, setResult] = useState("");
   const styles = useStyles();
   const t = useI18n();
 
   if (!card) return null;
 
-  const handleCompile = () => {
-    try {
-      const compiled = tavern.compile(card, {
-        user,
-        char: assistant,
-      });
-      setResult(compiled);
-    } catch (error) {
-      console.error(error);
-      alert(`${error}`);
-    }
-  };
-
   return (
     <div className={styles.col}>
-      <fieldset>
-        <legend>{t("Test Template")}</legend>
-        <div className={styles.col}>
-          <Field label={t("User Name")}>
-            <Input value={user} onChange={(e, data) => setUser(data.value)} />
-          </Field>
-
-          <Field label={t("Assistant Name")}>
-            <Input
-              value={assistant}
-              onChange={(e, data) => setAssistant(data.value)}
-            />
-          </Field>
-
-          <Button appearance="primary" onClick={handleCompile}>
-            {t("Generate")}
-          </Button>
-
-          <Field label={t("Output Result")}>
-            <Textarea value={result} readOnly resize="vertical" rows={10} />
-          </Field>
-        </div>
-      </fieldset>
+      {tools.map((x) => (
+        <ToolCard key={x.name} card={card} tool={x} />
+      ))}
     </div>
   );
 };
