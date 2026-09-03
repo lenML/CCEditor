@@ -12,6 +12,7 @@ import {
 import { Tag, Avatar, Field, makeStyles } from "@fluentui/react-components";
 import { fuzzyMatch } from "../../tools/matcher";
 import { keysFix } from "../../tools/fixs";
+import { useI18n } from "../../tools/i18n";
 
 export type FreeTagPickerProps = {
   value: string[];
@@ -34,28 +35,37 @@ export const FreeTagPicker: React.FC<FreeTagPickerProps> = ({
   value,
   onChange,
   options = [],
-  placeholder = "请输入标签",
+  placeholder,
 }) => {
+  const t = useI18n();
   const [query, setQuery] = React.useState<string>("");
 
   const styles = useStyles();
+
+  const resolvedPlaceholder = placeholder ?? t("Input or select tags");
 
   const handleOptionSelect: TagPickerProps["onOptionSelect"] = (_, data) => {
     onChange(keysFix(data.selectedOptions.filter((x) => x !== "no-options")));
     setQuery("");
   };
 
+  const commitQuery = () => {
+    const inputValue = query.trim();
+    if (!inputValue) return;
+    const newTags = inputValue
+      .split(/[,，]/g)
+      .map((x) => x.trim())
+      .filter(Boolean)
+      .filter((x) => !value.includes(x));
+    if (newTags.length > 0) onChange([...value, ...newTags]);
+    setQuery("");
+  };
+
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const inputValue = query;
-    if (e.key === "Enter" && inputValue.trim()) {
-      const newTag = inputValue.trim();
-      const newTags = newTag
-        .split(/[,，]/g)
-        .map((x) => x.trim())
-        .filter(Boolean)
-        .filter((x) => !value.includes(x));
-      onChange([...value, ...newTags]);
-      setQuery("");
+    // Commit the pending tag on Enter or Tab, so typing a key and moving
+    // focus away with Tab does not silently discard it.
+    if ((e.key === "Enter" || e.key === "Tab") && query.trim()) {
+      commitQuery();
     }
   };
   const children = useTagPickerFilter({
@@ -122,7 +132,7 @@ export const FreeTagPicker: React.FC<FreeTagPickerProps> = ({
 
         <TagPickerInput
           value={query}
-          placeholder={placeholder}
+          placeholder={resolvedPlaceholder}
           onChange={(ev) => setQuery(ev.target.value)}
           onKeyDown={handleInputKeyDown}
           onCompositionStart={onCompositionStart}
