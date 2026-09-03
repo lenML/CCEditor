@@ -58,7 +58,7 @@ function ToolCard({ card, tool }: { card: CharacterCard; tool: CCTool }) {
         </Button>
         {t(name)}
       </legend>
-      <span>{desc}</span>{" "}
+      <span>{t(desc)}</span>{" "}
       {is_expand ? (
         <>
           {" "}
