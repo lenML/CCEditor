@@ -203,5 +203,14 @@
   "confirmClearForm": "Are you sure you want to clear the form data? This operation may lose unsaved edits. You can export the character card first to ensure data is not lost.",
   "No history yet.": "No history yet.",
   "Input or select tags": "Input or select tags",
-  "Build the card's welcome message, to test whether variables in the text resolve correctly": "Build the card's welcome message, to test whether variables in the text resolve correctly"
+  "Build the card's welcome message, to test whether variables in the text resolve correctly": "Build the card's welcome message, to test whether variables in the text resolve correctly",
+  "Template": "Template",
+  "Persona template": "Persona template",
+  "worldview": "worldview",
+  "character name": "character name",
+  "character job": "character job",
+  "character description": "character description",
+  "character personality": "character personality",
+  "character skills": "character skills",
+  "other settings": "other settings"
 }

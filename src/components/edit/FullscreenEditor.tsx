@@ -172,22 +172,22 @@ export function FullscreenEditor(
                       return {
                         suggestions: [
                           {
-                            label: "模板",
+                            label: t("Template"),
                             kind: monaco.languages.CompletionItemKind.Snippet,
-                            documentation: "人设模板",
+                            documentation: t("Persona template"),
                             insertTextRules:
                               monaco.languages.CompletionItemInsertTextRule
                                 .InsertAsSnippet,
                             insertText: `<worldview>
-$\{1:世界观}
+$\{1:${t("worldview")}}
 </worldview>
 
-<character name="$\{2:角色名}">
-job: $\{3:角色职业}
-appearance: $\{2:角色名} $\{4:角色描述}
-personalities: $\{5:角色性格}
-skills: $\{6:角色技能}
-$\{7:其他设定}
+<character name="$\{2:${t("character name")}}">
+job: $\{3:${t("character job")}}
+appearance: $\{2:${t("character name")}} $\{4:${t("character description")}}
+personalities: $\{5:${t("character personality")}}
+skills: $\{6:${t("character skills")}}
+$\{7:${t("other settings")}}
 </character>`,
                             range: {
                               startLineNumber: position.lineNumber,
