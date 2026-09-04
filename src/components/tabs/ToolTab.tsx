@@ -1,12 +1,7 @@
 import type { CharacterCard } from "@lenml/char-card-reader";
-import { useMemo, useState } from "react";
-import { TinyTavern } from "../../tools/TinyTavern";
+import { useMemo } from "react";
 import {
-  Input,
   Button,
-  Textarea,
-  Label,
-  Field,
   makeStyles,
   tokens,
   Divider,
@@ -77,7 +72,6 @@ export const ToolTab = ({
 }) => {
   const card = useMemo(getCard, [getCard]);
   const styles = useStyles();
-  const t = useI18n();
 
   if (!card) return null;
 

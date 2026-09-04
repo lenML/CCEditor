@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import {
   Textarea,
   Button,
@@ -8,7 +8,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogTrigger,
   Text,
 } from "@fluentui/react-components";
 import {
@@ -20,6 +19,7 @@ import useResizeObserver from "@react-hook/resize-observer";
 import { editor } from "monaco-editor";
 import { useI18n } from "../../tools/i18n";
 import { encodeToTokens } from "../../tools/tokenizer";
+import { useFullscreenEditor } from "./useFullscreenEditor";
 
 interface FullscreenEditorProps {
   window_title?: string;
@@ -40,61 +40,31 @@ export function FullscreenEditor(
   } = props;
 
   const isControlled = controlledValue !== undefined;
-  const [internalValue, setInternalValue] = useState(defaultValue || "");
-  const [open, setOpen] = useState(false);
-  const [confirmClose, setConfirmClose] = useState(false);
-
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
   const containerRef = useRef<HTMLElement | null>(null);
-
-  const currentValue = isControlled ? controlledValue : internalValue;
-
-  const [editorValue, setEditorValue] = useState(currentValue || "");
+  const {
+    currentValue,
+    editorValue,
+    open,
+    confirmClose,
+    setEditorValue,
+    setOpen,
+    setConfirmClose,
+    handleChange,
+    applyChanges,
+    cancelEditing,
+    confirmCancel,
+  } = useFullscreenEditor({
+    value: controlledValue,
+    defaultValue,
+    onChange,
+    isControlled,
+  });
 
   const dirty = editorValue !== currentValue;
-
   useResizeObserver(containerRef, () => {
     editorRef.current?.layout();
   });
-
-  useEffect(() => {
-    if (open) {
-      setEditorValue(currentValue || "");
-    }
-  }, [currentValue, open]);
-
-  const handleChange = (
-    ev: React.ChangeEvent<HTMLTextAreaElement>,
-    data: any
-  ) => {
-    if (!isControlled) setInternalValue(ev.target.value);
-    onChange?.(ev, data);
-  };
-
-  const applyChanges = () => {
-    if (!dirty) return;
-    if (!isControlled) setInternalValue(editorValue);
-    onChange?.(
-      {
-        target: { value: editorValue },
-      } as React.ChangeEvent<HTMLTextAreaElement>,
-      { value: editorValue }
-    );
-    setOpen(false);
-  };
-
-  const cancelEditing = () => {
-    if (dirty) {
-      setConfirmClose(true);
-    } else {
-      setOpen(false);
-    }
-  };
-
-  const confirmCancel = () => {
-    setConfirmClose(false);
-    setOpen(false);
-  };
 
   const t = useI18n();
 
@@ -131,7 +101,6 @@ export function FullscreenEditor(
         </Text>
       </div>
 
-      {/* Main Editor Dialog */}
       <Dialog open={open} onOpenChange={(_, data) => setOpen(data.open)}>
         <DialogSurface
           aria-describedby={undefined}
@@ -169,6 +138,8 @@ export function FullscreenEditor(
                   editorRef.current = editor;
                   monaco.languages.registerCompletionItemProvider("markdown", {
                     provideCompletionItems(model, position, context, token) {
+                      void context;
+                      void token;
                       return {
                         suggestions: [
                           {
@@ -211,7 +182,6 @@ $\{7:${t("other settings")}}
                   marginTop: 4,
                   display: "block",
                   textAlign: "right",
-                  // 主要是移动端会遮挡按钮
                   pointerEvents: "none",
                 }}
               >
@@ -238,7 +208,6 @@ $\{7:${t("other settings")}}
         </DialogSurface>
       </Dialog>
 
-      {/* Confirm Close Dialog */}
       <Dialog
         open={confirmClose}
         onOpenChange={(_, data) => setConfirmClose(data.open)}

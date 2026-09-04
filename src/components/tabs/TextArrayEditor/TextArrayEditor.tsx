@@ -1,6 +1,5 @@
 import {
   Button,
-  Input,
   makeStyles,
   shorthands,
   tokens,
@@ -13,7 +12,7 @@ import {
   ReOrderRegular,
 } from "@fluentui/react-icons";
 import { nanoid } from "nanoid";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { FullscreenEditor } from "../../edit/FullscreenEditor";
 import { requestConfirm } from "../../misc/requestConfirm";
 

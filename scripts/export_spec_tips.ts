@@ -12,7 +12,7 @@ function parseSpecMarkdown(content: string): Record<string, string[]> {
   let currentValue: string[] = [];
 
   for (const line of lines) {
-    const match = line.match(/^### [`‘“]?([\w\-]+)[`’”]?\s*$/);
+    const match = line.match(/^### [`‘“]?([\w-]+)[`’”]?\s*$/);
     if (match) {
       if (currentKey) {
         result[currentKey] = currentValue

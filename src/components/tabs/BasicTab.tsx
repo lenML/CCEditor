@@ -5,7 +5,6 @@ import { useMemo } from "react";
 import { FullscreenEditor } from "../edit/FullscreenEditor";
 import { FreeTagPicker } from "../fields/TagPicker";
 import tags from "../../assets/tags.json";
-import { HelpTips } from "../HelpTips/HelpTips";
 import { CardFieldLabel } from "../HelpTips/CardFieldLabel";
 
 export const BasicTab = ({

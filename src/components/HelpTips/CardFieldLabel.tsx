@@ -1,6 +1,5 @@
 import { Text } from "@fluentui/react-components";
 import { HelpTips } from "./HelpTips";
-import { useI18n } from "../../tools/i18n";
 
 export const CardFieldLabel = ({
   name,
