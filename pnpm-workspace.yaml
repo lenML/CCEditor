@@ -1,0 +1,13 @@
+onlyBuiltDependencies:
+  - '-'
+  - '@tailwindcss/oxide'
+  - core-js
+  - e
+  - esbuild
+  - g
+  - i
+  - j
+  - r
+  - s
+  - t
+  - y
