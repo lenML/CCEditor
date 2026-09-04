@@ -1,5 +1,5 @@
 import { Button, Text, Tooltip } from "@fluentui/react-components";
-import { History24Regular } from "@fluentui/react-icons";
+import { History24Regular, Toolbox24Regular } from "@fluentui/react-icons";
 import { useStyles } from "./useStyles";
 import { GITHUB_REPO_LINK } from "./constants";
 import { GithubIcon } from "./icons";
@@ -11,7 +11,9 @@ import pkgJson from "../../package.json";
 export function AppHeader() {
   const styles = useStyles();
   const t = useI18n();
+  const hasCard = useEditorStore((state) => state.hasCard);
   const openHistory = useEditorStore((state) => state.setHistoryDrawerOpen);
+  const openTools = useEditorStore((state) => state.setToolsDrawerOpen);
 
   return (
     <header className={styles.header}>
@@ -25,6 +27,16 @@ export function AppHeader() {
       </div>
       <div className={styles.headerRight}>
         <LangSwitch />
+        <Tooltip content={t("Tool")} relationship="label">
+          <Button
+            icon={<Toolbox24Regular />}
+            appearance="transparent"
+            disabled={!hasCard}
+            onClick={() => openTools(true)}
+          >
+            {t("Tool")}
+          </Button>
+        </Tooltip>
         <Tooltip content={t("View History")} relationship="label">
           <Button
             icon={<History24Regular />}

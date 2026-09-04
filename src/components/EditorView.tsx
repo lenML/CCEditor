@@ -1,4 +1,4 @@
-import { Card, Divider, Tab, TabList, type SelectTabData } from "@fluentui/react-components";
+import { Card, Tab, TabList, type SelectTabData } from "@fluentui/react-components";
 import {
   AppsListDetail24Regular,
   BookToolbox24Regular,
@@ -12,7 +12,6 @@ import { BasicTab } from "./tabs/BasicTab";
 import { DetailsTab } from "./tabs/DetailsTab";
 import { CharacterBookTab } from "./tabs/CharacterBookTab";
 import { AdvancedTab } from "./tabs/AdvancedTab";
-import { ToolTab } from "./tabs/ToolTab";
 import { useEditorStore } from "../store/editorStore";
 import { createDefaultCardData } from "../lib/cardData";
 
@@ -25,7 +24,6 @@ export function EditorView() {
   const formData = useEditorStore((state) => state.formData);
   const handleInputChange = useEditorStore((state) => state.setField);
   const handleBookDataChange = useEditorStore((state) => state.setBookData);
-  const getCard = useEditorStore((state) => state.buildCharacterCard);
 
   return (
     <div className={styles.editorLayout}>
@@ -46,10 +44,6 @@ export function EditorView() {
           </Tab>
           <Tab icon={<Settings24Regular />} value="advanced">
             {t("Advanced")}
-          </Tab>
-          <Divider vertical style={{ height: "100%", flex: 0 }} />
-          <Tab icon={<Settings24Regular />} value="tool">
-            {t("Tool")}
           </Tab>
         </TabList>
         <div className={styles.tabContent}>
@@ -76,8 +70,6 @@ export function EditorView() {
                 return (
                   <AdvancedTab formData={formData} handleInputChange={handleInputChange} />
                 );
-              case "tool":
-                return <ToolTab getCard={getCard} />;
               default:
                 return <span>WARN: Tab Render Error [{selectedTab}]</span>;
             }

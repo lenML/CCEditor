@@ -212,5 +212,16 @@
   "character description": "character description",
   "character personality": "character personality",
   "character skills": "character skills",
-  "other settings": "other settings"
+  "other settings": "other settings",
+  "Search cards...": "Search cards...",
+  "All Tags": "All Tags",
+  "All Sources": "All Sources",
+  "All Versions": "All Versions",
+  "No matching cards": "No matching cards",
+  "Delete this card from history?": "Delete this card from history?",
+  "Clear all history? This action cannot be undone.": "Clear all history? This action cannot be undone.",
+  "Plugin tools run against the current card without modifying it.": "Plugin tools run against the current card without modifying it.",
+  "Load a character card first": "Load a character card first",
+  "Start": "Start",
+  "A local workspace for creating, importing, and refining character cards.": "A local workspace for creating, importing, and refining character cards."
 }

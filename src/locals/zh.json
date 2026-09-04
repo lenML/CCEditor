@@ -222,5 +222,16 @@
   "character description": "角色描述",
   "character personality": "角色性格",
   "character skills": "角色技能",
-  "other settings": "其他设定"
+  "other settings": "其他设定",
+  "Search cards...": "搜索角色卡...",
+  "All Tags": "全部标签",
+  "All Sources": "全部来源",
+  "All Versions": "全部版本",
+  "No matching cards": "没有匹配的角色卡",
+  "Delete this card from history?": "确定从历史中删除这张角色卡？",
+  "Clear all history? This action cannot be undone.": "确定清空全部历史？此操作无法撤销。",
+  "Plugin tools run against the current card without modifying it.": "插件工具基于当前角色卡运行，不会直接修改卡片。",
+  "Load a character card first": "请先加载角色卡",
+  "Start": "开始",
+  "A local workspace for creating, importing, and refining character cards.": "用于创建、导入和精修角色卡的本地工作区。"
 }

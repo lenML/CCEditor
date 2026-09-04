@@ -46,6 +46,11 @@ export const useStyles = makeStyles({
     gap: tokens.spacingVerticalXXL,
     overflow: "auto",
   },
+  welcomePage: {
+    padding: "0",
+    gap: "0",
+    overflow: "hidden",
+  },
   dropArea: {
     display: "flex",
     flexDirection: "column",

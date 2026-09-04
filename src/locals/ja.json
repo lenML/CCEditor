@@ -213,5 +213,16 @@
   "Are you sure you want to delete this greeting?": "この挨拶を削除してもよろしいですか？",
   "Are you sure you want to delete this greeting(group only)?": "この挨拶（グループのみ）を削除してもよろしいですか？",
   "confirmClearForm": "データをクリアしてもよろしいですか？この操作では保存されていない編集内容が失われる可能性があります。先にキャラクターカードをエクスポートして、データが失われないようにしてください。",
-  "Input or select tags": "タグを入力または選択"
+  "Input or select tags": "タグを入力または選択",
+  "Search cards...": "カードを検索...",
+  "All Tags": "すべてのタグ",
+  "All Sources": "すべての出典",
+  "All Versions": "すべてのバージョン",
+  "No matching cards": "一致するカードがありません",
+  "Delete this card from history?": "履歴からこのカードを削除してもよろしいですか？",
+  "Clear all history? This action cannot be undone.": "すべての履歴を削除しますか？この操作は元に戻せません。",
+  "Plugin tools run against the current card without modifying it.": "プラグインツールは現在のカードを変更せずに実行します。",
+  "Load a character card first": "先にキャラクターカードを読み込んでください",
+  "Start": "開始",
+  "A local workspace for creating, importing, and refining character cards.": "キャラクターカードの作成、インポート、編集を行うローカルワークスペースです。"
 }

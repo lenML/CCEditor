@@ -18,6 +18,7 @@ type EditorStore = {
   originalCreationDate?: number;
   history: CardRecord[];
   isHistoryDrawerOpen: boolean;
+  isToolsDrawerOpen: boolean;
   selectedTab: string;
   isDirty: boolean;
 
@@ -31,9 +32,11 @@ type EditorStore = {
   setDirty: (dirty: boolean) => void;
   buildCharacterCard: () => CharacterCard | undefined;
   addToHistory: (data: CardData, avatar?: string | null) => Promise<void>;
-  loadHistory: (index: number) => void;
+  loadHistory: (id: string) => void;
+  deleteHistory: (id: string) => Promise<void>;
   clearHistory: () => Promise<void>;
   setHistoryDrawerOpen: (open: boolean) => void;
+  setToolsDrawerOpen: (open: boolean) => void;
   selectTab: (tab: string) => void;
 };
 
@@ -76,6 +79,7 @@ function applyCardToEditor(
     originalCreationDate,
     isDirty: false,
     selectedTab: "basic",
+    isToolsDrawerOpen: false,
   });
 }
 
@@ -86,6 +90,7 @@ export const useEditorStore = create<EditorStore>()((set, get) => ({
   originalFileName: "",
   history: [],
   isHistoryDrawerOpen: false,
+  isToolsDrawerOpen: false,
   selectedTab: "basic",
   isDirty: false,
 
@@ -141,6 +146,7 @@ export const useEditorStore = create<EditorStore>()((set, get) => ({
       originalCreationDate: undefined,
       isDirty: false,
       selectedTab: "basic",
+      isToolsDrawerOpen: false,
     });
   },
 
@@ -215,8 +221,8 @@ export const useEditorStore = create<EditorStore>()((set, get) => ({
     });
   },
 
-  loadHistory(index) {
-    const item = get().history[index];
+  loadHistory(id) {
+    const item = get().history.find((record) => record.id === id);
     if (!item) return;
     const { data } = item.card;
     applyCardToEditor(
@@ -226,7 +232,14 @@ export const useEditorStore = create<EditorStore>()((set, get) => ({
       `Loaded from history: ${data.name || "Unnamed"}`,
       data.creation_date
     );
-    set({ isHistoryDrawerOpen: false });
+    set({ isHistoryDrawerOpen: false, isToolsDrawerOpen: false });
+  },
+
+  async deleteHistory(id) {
+    const exists = get().history.some((record) => record.id === id);
+    if (!exists) return;
+    await cardDB.delete(id);
+    set({ history: get().history.filter((record) => record.id !== id) });
   },
 
   async clearHistory() {
@@ -236,6 +249,10 @@ export const useEditorStore = create<EditorStore>()((set, get) => ({
 
   setHistoryDrawerOpen(open) {
     set({ isHistoryDrawerOpen: open });
+  },
+
+  setToolsDrawerOpen(open) {
+    set({ isToolsDrawerOpen: open });
   },
 
   selectTab(tab) {

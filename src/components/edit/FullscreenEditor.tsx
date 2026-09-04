@@ -16,7 +16,7 @@ import {
 } from "@fluentui/react-icons";
 import { Editor } from "@monaco-editor/react";
 import useResizeObserver from "@react-hook/resize-observer";
-import { editor } from "monaco-editor";
+import type { editor } from "monaco-editor";
 import { useI18n } from "../../tools/i18n";
 import { encodeToTokens } from "../../tools/tokenizer";
 import { useFullscreenEditor } from "./useFullscreenEditor";
@@ -75,7 +75,7 @@ export function FullscreenEditor(
           icon={<FullScreenMaximizeFilled />}
           appearance="secondary"
           onClick={() => setOpen(true)}
-          className="absolute top-1 left-1 z-10 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-150 ease-in-out"
+          className="absolute top-1 left-1 z-10 opacity-100 transition-opacity duration-150 ease-in-out"
           title={t("Fullscreen Edit")}
         />
         <Textarea

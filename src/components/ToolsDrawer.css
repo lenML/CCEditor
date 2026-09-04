@@ -1,0 +1,73 @@
+.tools-drawer-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 4px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(70, 140, 255, 0.09), transparent 34%),
+    #161616;
+}
+
+.tools-intro {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.tools-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tool-panel {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+}
+
+.tool-panel-header {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.tool-panel-header:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.tool-panel-title {
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 600;
+}
+
+.tool-panel-description {
+  margin-top: 2px;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 12px;
+}
+
+.tool-panel-body {
+  padding: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tools-empty {
+  display: flex;
+  min-height: 220px;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(255, 255, 255, 0.13);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}

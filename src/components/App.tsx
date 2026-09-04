@@ -3,9 +3,12 @@ import { FluentProvider, webDarkTheme } from "@fluentui/react-components";
 import { useStyles } from "./useStyles";
 import { StartPanel } from "./StartPanel/StartPanel";
 import { AppHeader } from "./AppHeader";
-import { HistoryDrawer } from "./HistoryDrawer";
+import { HistoryDrawer } from "./history/HistoryDrawer";
+import { ToolsDrawer } from "./ToolsDrawer";
 import { EditorView } from "./EditorView";
 import { useEditorStore } from "../store/editorStore";
+import { preloadMonaco } from "../lib/monacoLoader";
+import "../plugins/local";
 
 export function App() {
   const styles = useStyles();
@@ -14,6 +17,13 @@ export function App() {
 
   useEffect(() => {
     void useEditorStore.getState().fetchHistory();
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      void preloadMonaco().catch((error) => console.error("Monaco preload failed:", error));
+    }, 1200);
+    return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -34,10 +44,15 @@ export function App() {
       style={{ height: "100vh" }}
     >
       <AppHeader />
-      <main className={styles.mainContent}>
+      <main
+        className={
+          hasCard ? styles.mainContent : `${styles.mainContent} ${styles.welcomePage}`
+        }
+      >
         {hasCard ? <EditorView /> : <StartPanel />}
       </main>
       <HistoryDrawer />
+      <ToolsDrawer />
     </FluentProvider>
   );
 }
