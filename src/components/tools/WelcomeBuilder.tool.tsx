@@ -73,7 +73,10 @@ function WelcomeBuilder({ card }: { card: CharacterCard }) {
  */
 export class WelcomeBuilderTool extends CCTool {
   constructor() {
-    super("WelcomeBuilder", "构建卡片欢迎消息，以测试某些文本中的变量是否正确");
+    super(
+      "WelcomeBuilder",
+      "Build the card's welcome message, to test whether variables in the text resolve correctly"
+    );
   }
   component = WelcomeBuilder;
 }

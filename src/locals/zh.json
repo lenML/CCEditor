@@ -212,5 +212,15 @@
   "Confirm": "确认",
   "Are you sure you want to delete this greeting?": "您确定要删除此问候语吗？",
   "Are you sure you want to delete this greeting(group only)?": "您确定要删除此问候语（仅限群组）吗？",
-  "confirmClearForm": "确定清空数据吗，此操作可能丢失未保存的编辑。你可以先导出角色卡确保数据不丢失。"
+  "confirmClearForm": "确定清空数据吗，此操作可能丢失未保存的编辑。你可以先导出角色卡确保数据不丢失。",
+  "Build the card's welcome message, to test whether variables in the text resolve correctly": "构建卡片欢迎消息，以测试某些文本中的变量是否正确",
+  "Template": "模板",
+  "Persona template": "人设模板",
+  "worldview": "世界观",
+  "character name": "角色名",
+  "character job": "角色职业",
+  "character description": "角色描述",
+  "character personality": "角色性格",
+  "character skills": "角色技能",
+  "other settings": "其他设定"
 }
